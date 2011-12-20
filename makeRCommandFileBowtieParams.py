@@ -6,13 +6,13 @@
 
 fileHandle = 'DataSet'
 outfileName = 'DataSet.R'
-loopBegin = 89
-loopEnd = 89
+loopBegin = 88
+loopEnd = 88
 
 s12 = r'bt <- scan("'
-s13 = r'_default.map.geneExpNum")'
+s13 = r'_n0k10.map.geneExpNum")'
 s14 = r'pdf("'
-s15 = r'_defaultBowtie.pdf")'
+s15 = r'_n0k10Bowtie.pdf")'
 s16 = r'barplot(bt, col=9, font=2)'
 s17 = r'dev.off()'
 

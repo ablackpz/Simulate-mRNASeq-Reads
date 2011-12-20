@@ -1,3 +1,5 @@
+import math
+
 
 def reverseComplement(string,nuc):
     if nuc == 'DNA':
@@ -12,12 +14,31 @@ def reverseComplement(string,nuc):
 def findMedian(medianList):
     medianList.sort()
     length = len(medianList)
-    if length % 2:
-        median = medianList[(length // 2)]
+    if length % 2 == 1:
+        median = medianList[((length + 1) / 2 - 1)]
     else:
-        median = float(medianList[length / 2 - 1] + medianList[length / 2 ]) / 2
+        lower = medianList[length / 2 - 1]
+        upper = medianList[length / 2]
+        median = (float(upper + lower)) / 2
+
     return median
 
+def findLowestQuartile(medianList):
+    medianList.sort()
+    length = len(medianList)
+    newLength = length // 4
+    return medianList[0:newLength]
+
+def meanStdDev(medianList):
+    n, mean, std = len(medianList), 0, 0
+    for i in medianList:
+        mean = mean + i
+    mean = mean / float (n)
+    for a in medianList:
+        std = std + (i - mean)**2
+    std = math.sqrt(std / float(n - 1))
+    return mean, std
+        
 def convertDecimaltoQuaternary(x):
     lengthDec = len(str(x))
     n = x

@@ -52,17 +52,6 @@ def countKmersFile(filename, kLength):
     fasta = {}
     identifier = 0
     fasta = inputFastaSeq(filename)
-#    for newString in open(filename):
-#        if newString[0] == '>':
-#            identifier = newString.rstrip()
-#        elif identifier:
-#            newString = newString.rstrip()
-#            fasta[identifier] = newString
-#            lastIdentifier = identifier
-#            identifier = 0
-#        elif newString[0] == ('A' or 'C' or 'G' or 'T' or 'U' or 'N'):
-#            newString = newString.rstrip()
-#            fasta[lastIdentifier] = fasta[lastIdentifier] + newString
     for entry in fasta:        
             k = len(fasta[entry])
             i = 0
@@ -77,6 +66,56 @@ def countKmersFile(filename, kLength):
                 i += 1
     
     return kmers
+
+def countKmersInitializedFile(filename, kLength, kmers):
+    fasta = {}
+    fasta = inputFastaSeq(filename)
+    for entry in fasta:
+        kmers = countKmersInitialized(fasta[entry], kLength, kmers)
+    return kmers
+
+def countKmersInitialized(seq, kLength, kmers):
+    k = len(seq)
+#    print seq
+    i = 0
+    while i + kLength <= k:
+        newWord = seq[i:i + kLength]
+#        print newWord
+        if kmers.has_key(newWord):
+            kmers[newWord] += 1
+#            print 'Found key forward'
+        elif kmers.has_key(aabpPyLib.reverseComplement(newWord, 'DNA')):
+            kmers[aabpPyLib.reverseComplement(newWord, 'DNA')] += 1
+#            print 'Found key reverse'
+        else:
+#            print 'Key should have been found, but was not'
+            pass
+        i += 1
+    return kmers
+
+def zeroInitializedDictionary(x):
+    for key in x:
+        x[key] = 0
+    return x
+
+def outputDictionaryContent(filename, x):
+    outfile = open(filename, 'a')
+    for key in sorted(x):
+        outfile.write(key + '\t' + str(x[key]) + '\n')
+    return len(x)
+
+def outputDictionaryContentNoKey(filename, x):
+    outfile = open(filename, 'a')
+    for key in sorted(x):
+        outfile.write(str(x[key]) + '\t')
+    return len(x)
+
+def inputDictionaryContent(filename, x):
+    for newString in open(filename, 'r'):
+        newString = newString.rstrip()
+        parts = newString.split('\t')
+        x[parts[0]] = parts[1]
+    return x
 
 def makeKmerCountData(seqLength, alpha):
     data = ''
@@ -286,7 +325,7 @@ def makeSingleKmerPlusOneCountData(kLength, seqLength, repSeq, Ns):
             data = data + alphabet[random.randint(0, len(alphabet)-1)]
         else:
             newNuc = alphabet[random.randint(0, len(alphabet)-1)]
-            if data[-1 * kLength -1: -1] + newNuc not in data or data[-1 * kLength -1: -1] + newNuc == repSeq:
+            if data[-1 * kLength -1: -1] + newNuc not in data and aabpPyLib.reverseComplement(data[-1 * kLength - 1: -1] + newNuc, 'DNA') not in data:
                 data = data + newNuc
     return data
     
@@ -300,30 +339,36 @@ def makeIsoform(kLength, seqLength, seqPortion, seqOriginal):
                 data = data + alphabet[random.randint(0, len(alphabet)-1)]
             else:
                 newNuc = alphabet[random.randint(0, len(alphabet)-1)]
-                if data[-1 * kLength -1: -1] + newNuc not in data:
+                if data[-1 * kLength -1: -1] + newNuc not in data and aabpPyLib.reverseComplement(data[-1 * kLength - 1: -1] + newNuc, 'DNA') not in data:
                     data = data + newNuc
     return data
 
 def addSeqErrors(read, errors):
+    temp = ''
     for errorCounter in range(0, len(read)):
-        if random.randint(1, 101) <= errors:
+        if random.randint(1, 100) <= errors:
+            seq= ['A', 'C', 'G', 'T']
             nuc = read[errorCounter]
-#            print nuc
-            if nuc == 'A':
-                    seq = ['G', 'C', 'T']
-            elif nuc == 'C':
-                    seq = ['A', 'G', 'T']
-            elif nuc == 'G':
-                    seq = ['A', 'C', 'T']
-            elif nuc == 'T':
-                    seq = ['A', 'C', 'G']
-            else:
-                    seq = ['A', 'C', 'G', 'T']
+            seq.remove(nuc)
             nuc = random.choice(seq)
-            temp = read[:errorCounter] + nuc + read[errorCounter+1:]
-            read = temp
-#            print nuc
-    return read
+            temp += nuc
+        else:
+            temp += read[errorCounter]
+    return temp
+
+def addSeqErrorsId(read, identifier, errors):
+    temp = ''
+    for errorCounter in range(0, len(read)):
+        if random.randint(1, 100) <= errors:
+            seq= ['A', 'C', 'G', 'T']
+            nuc = read[errorCounter]
+            seq.remove(nuc)
+            nuc = random.choice(seq)
+            temp += nuc
+            identifier = identifier + '_E' + str(errorCounter)
+        else:
+            temp += read[errorCounter]
+    return temp, identifier
 
 def addNs(seq, freq):
     for counter in range(0, len(seq)):
@@ -334,27 +379,31 @@ def addNs(seq, freq):
             
 
 def makeRandomlyPlacedReads(gene, identifier, readLength, numReads, filenameFasta, filenameCoverage, errors, Ns):
-    coverageReq = len(gene) / readLength * numReads
-    for i in range(0, coverageReq):
-        if len(gene) >= readLength:
+    coverageReq = float(len(gene)) / float(readLength) * float(numReads)
+    if len(gene) >= readLength:
+#        print coverageReq
+        for i in range(0, int(coverageReq)):
+#        if len(gene) >= readLength:
             position = random.randint(0,len(gene)-readLength)
             read = gene[position:position + readLength]
+            identifier1 = identifier + 'Count' + str(i) + 'Begin' + str(position) + 'End' + str(position + readLength - 1)
             if errors:
-                read = addSeqErrors(read, errors)
+                read, identifier1 = addSeqErrorsId(read, identifier1, errors)
             if Ns:
                 read = addNs(read, Ns)
-            identifier1 = identifier + 'Count' + str(i) + 'Begin' + str(position) + 'End' + str(position + readLength - 1)
+#            identifier1 = identifier + 'Count' + str(i) + 'Begin' + str(position) + 'End' + str(position + readLength - 1)
             a = outputFastaSeq(filenameFasta, identifier1, read)
-        else:
-            pass
+    else:
+        pass
     b = outputGeneCoverage(filenameCoverage, identifier, 'Random Placement-Number of Reads' + ':' + str(coverageReq), numReads)
     return 1
 
 def makeRandomlyPlacedPairedEndReads(gene, identifier, readLengthSide, insertSize, numReads, filenameFasta1, filenameFasta2, filenameCoverage, errors, Ns):
-    totalReadLength = 2 * readLengthSide + insertSize
-    coverageReq = len(gene) / totalReadLength * numReads
-    for i in range(0, coverageReq):
-        if len(gene) >= totalReadLength:
+    totalReadLength = 2 * float(readLengthSide) + float(insertSize)
+    coverageReq = float(len(gene)) / float(totalReadLength) * float(numReads)
+    if len(gene) >= totalReadLength:
+        for i in range(0, coverageReq):
+#        if len(gene) >= totalReadLength:
             position = random.randint(0,len(gene)-totalReadLength)
             read = gene[position:position + totalReadLength]
             if errors:
@@ -365,8 +414,8 @@ def makeRandomlyPlacedPairedEndReads(gene, identifier, readLengthSide, insertSiz
             a = outputFastaSeq(filenameFasta1, identifier1 + '\t1', read[:readLengthSide])
             identifier2 = identifier + 'Count' + str(i) + 'Begin' + str(position + readLengthSide + insertSize) + 'End' + str(position + (2 * readLengthSide) + insertSize - 1)
             a = outputFastaSeq(filenameFasta2, identifier1 + '\t2', read[-1*readLengthSide: -1])
-        else:
-            pass
+    else:
+        pass
     b = outputGeneCoverage(filenameCoverage, identifier, 'Random Placement-Number of Reads' + ':' + str(coverageReq), numReads)
     return 1
 

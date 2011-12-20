@@ -17,7 +17,7 @@ count = 0
 for newString in open(sys.argv[1]):
     newString = newString.rstrip()
     parts = newString.split('\t')
-    if float(parts[2]) == 0 or float(parts[1]) == 0:
+    if float(parts[2]) <= 0 or float(parts[1]) <= 0:
         ratio = 0
     else:
         ratio = math.log((float(parts[2]) / float(parts[1])), 2)
