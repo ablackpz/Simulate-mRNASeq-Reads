@@ -59,6 +59,8 @@
 %% ** EDIT HERE **
 %% PLEASE INCLUDE ALL MACROS BELOW
 
+\newcommand{\rnaseq}{RNA-Seq}
+
 %% END MACROS SECTION
 
 \begin{document}
@@ -66,7 +68,7 @@
 % Title must be 150 characters or less
 \begin{flushleft}
 {\Large
-\textbf{RNA-Seq Mapping Errors When Using Incomplete Reference Transcriptomes of Vertebrates}
+\textbf{\rnaseq{} Mapping Errors When Using Incomplete Reference Transcriptomes of Vertebrates}
 }
 % Insert Author names, affiliations and corresponding author email.
 \\
@@ -101,19 +103,20 @@ we show that read lengths or insert sizes must increase past 1kb to resolve mapp
 
 \section*{Introduction}
 
-Whole transcriptome sequencing using RNA sequencing (RNAseq) has grown in popularity 
+Whole transcriptome sequencing using RNA sequencing (\rnaseq{}) has grown in popularity 
 for studying organisms in agriculture, evolution, and medicine \cite{Martin2011,Twine2011,Kai2011}.  
 Next generation sequencing (NGS) technology has evolved to the point where the cost is within 
 financial range for many labs, and the resultant data can be mined for a range of applications 
-\cite{Ye2011}.  However, the computational pipeline to process RNA-seq data was developed 
-for model organisms with complete or mostly complete reference transcriptomes.  In this study, 
+\cite{Ye2011}.  However, the computational pipeline to process \rnaseq{} data was developed 
+for model organisms with complete or mostly complete reference transcriptomes as 
+determined from previous experimental studies.  In this study, 
 we use simulations to assess the accuracy of a key part of this pipeline, mapping short reads to 
 a reference transcriptome, and quantify the error arising from incomplete transcriptomes and 
 alternative splicing.
 
-RNAseq, deep sequencing of cDNA, can be used to generate a transcriptome that includes 
+\rnaseq{}, deep sequencing of cDNA, can be used to generate a transcriptome that includes 
 alternative splice variants, and can also be used to estimate the expression level of these transcripts \cite{Wang2008,Cloonan2008,Denoeud2008,Lister2008,Maher2009,Marioni2008,Mortazavi2008,Nagalakshmi2008,Sultan2008,Yassour2009}.  Transcripts can be quantified and analyzed for differential expression between samples.  
-Current RNAseq approaches use shotgun sequencing with short-read technologies such as 
+Current \rnaseq{} approaches use shotgun sequencing with short-read technologies such as 
 Illumina, in which millions or billions of 50-150 bp reads are generated from a randomly 
 fragmented cDNA library.  Because these reads are not long enough to span most complete 
 transcripts, expression levels must be inferred by using a reference transcriptome.
@@ -122,7 +125,7 @@ Current approaches for converting read data into transcript expression levels co
 1) obtaining a reference transcriptome, 2) mapping reads to the reference, and 3) applying 
 statistical estimation to obtain expression levels and compare transcript expression across 
 conditions.  The first step makes use of either an existing reference transcriptome or building 
-a transcriptome from the RNAseq reads via reference-guided or de novo assembly 
+a transcriptome from the \rnaseq{} reads via reference-guided or de novo assembly 
 \cite{Trapnell2010,Schulz2012,Grabherr2011}.  Because many publicly available reference 
 transcriptomes are incomplete \cite{Ye2011}, researchers must often assemble their own 
 reference \cite{Oshlack2010}, a nontrivial task that requires building contiguous regions 
@@ -167,7 +170,7 @@ expressed transcripts/genes.  Because we cannot directly measure whole-transcrip
 expression with current technology, a variety of sophisticated models have been used 
 to infer transcript expression from mapped reads (XXX cites).
 
-A key question for researchers working with RNAseq is the extent to which expression 
+A key question for researchers working with \rnaseq{} is the extent to which expression 
 analysis depends on the quality and completeness of their reference transcriptome.  An 
 incomplete reference transcriptome can result in inaccurate read assignment due to missing 
 transcripts, and this can bias downstream expression analyses.  A related question is 
@@ -175,12 +178,12 @@ whether longer reads or (for paired-end sequencing) larger fragment sizes can yi
 improved mapping specificity.
 
 In this study we determine the mapping and transcript expression accuracy that can be 
-expected for a RNAseq experiment on a vertebrate with an incomplete reference 
+expected for a \rnaseq{} experiment on a vertebrate with an incomplete reference 
 transcriptome.  We first simulate small data sets for real and artificial transcriptomes 
 using both single and paired-end reads and quantify the mapping error resulting from 
 alternative splice variants.  We then use larger simulated read sets for real transcriptomes 
 and demonstrate the effects of alternative splice variants and incomplete reference 
-transcriptome on per-read accuracy.  We next determine the error in transcript expression 
+transcriptome on read mapping accuracy.  We next determine the error in transcript expression 
 and show that grouping transcripts by gene or shared sequence can improve accuracy.  
 Finally, we simulate reads of increasing length to determine what read length is needed 
 for higher accuracy.
@@ -191,7 +194,9 @@ for higher accuracy.
 \subsection*{Read Simulations}
 
 To evaluate the accuracy of mapping, read sets were simulated where each read was annotated 
-with its originating transcript.  To simulate Illumina reads, single end reads were 100 bp and 
+with its originating transcript.  The transcriptomes used were either chicken (22290 transcripts), 
+mouse (88366 transcripts), or randomly generated (see Methods).  
+To simulate Illumina reads, single end reads were 100 bp and 
 paired end reads were 100 bp with 50 bp insert size.  An error rate of 1\% was simulated by 
 applying a random substitution error to the simulated reads.  Reads were generated from 
 randomly selected 100 or 250 bp spans along each transcript.  Expression levels for most 
@@ -232,7 +237,7 @@ we next generated simulated read sets of \emph{Mus musculus}, which has a well-s
 and \emph{Gallus gallus}, for which the reference genome and transcriptome are known to be 
 incomplete. 50\% of the 
 transcripts were randomly selected for expression across several orders of magnitude (10, 100, 1000) 
-to model real RNASeq expression levels.  As seen in Figure 2 (top left), when 10\% increments of 
+to model real \rnaseq{} expression levels.  As seen in Figure 2 (top left), when 10\% increments of 
 the chicken reference transcriptome are missing, the true positive rate decreases by approximately 
 6-8\%, while the false positive rate remains relatively constant until the reference is more than 50\% 
 incomplete.  This is due to reads being mismapped to alternative splice variants (as demonstrated 
@@ -245,7 +250,7 @@ mouse data set (Figure \ref{fig:incRefComposite}, right column) by the significa
 of known alternative splice variants, leading to less than 50\% of the reads being accurately 
 mapped with default parameters and less than 25\% of the data being mappable using unique 
 parameters.  Because the chicken transcriptome is less complete than mouse, it is probable that 
-real chicken RNASeq data would more closely resemble the high false positive rates of the mouse 
+real chicken \rnaseq{} data would more closely resemble the high false positive rates of the mouse 
 data.  Paired read data sets generated similarly to the single end sets discussed above have similar 
 mapping trends and accuracy as shown in Figure \ref{fig:incRefComposite} (not shown).
 
@@ -265,7 +270,7 @@ number of reads generated from each transcript in the chicken transcriptome.  As
 15 and 27\% of the transcripts have an inaccurate expression level when mapping with a complete 
 reference transcriptome.  Paired ends yield slightly greater mapping specificity and therefore slightly 
 more accurate transcript expression levels.  As the reference transcriptome completeness decreases, 
-the per-read errors lead to more transcripts with inaccurate expression levels reported, with higher 
+the read mapping errors lead to more transcripts with inaccurate expression levels reported, with higher 
 percentages of transcriptome expression leading to greater numbers of errors.  Errors from alternative 
 splice variants can be eliminated by grouping transcripts either by gene (similar to genome mapping) 
 if gene to transcript information is available, or grouping based on transcripts sharing multimap reads 
@@ -279,7 +284,7 @@ problem) is to develop new sequencing technologies that generate longer reads.  
 single-end read lengths around 100 bp, Roche 454 can achieve 400 bp, and Pacific Biosciences is 
 developing a method that will yield 10000 bp.  To determine if these lengths are sufficient to increase 
 the uniqueness of reads, we simulated single and paired ends reads at various lengths and determined 
-the per-read error.  As seen in Figure \ref{fig:longSeReads}, 20\% more reads are unique when read 
+the read mapping errors.  As seen in Figure \ref{fig:longSeReads}, 20\% more reads are unique when read 
 size is increased from 100 bp to 1 kb.  However, even at 1 kb, the longest read that Bowtie can currently 
 handle, reads map with only 70\% accuracy, indicating that single end reads will need to lengthen 
 more than 10-fold to solve the mapping inaccuracy problem (see Figure \ref{fig:longSeReadsExample}).  
@@ -296,8 +301,8 @@ than 1 kb in length could achieve read uniqueness by spanning longer stretches o
 
 \section*{Discussion}
 
-As RNASeq becomes less expensive and more computational tools are developed, the focus on 
-analysis should shift to which questions can be addressed with reasonable accuracy.  RNASeq reads 
+As \rnaseq{} becomes less expensive and more computational tools are developed, the focus on 
+analysis should shift to which questions can be addressed with reasonable accuracy.  \rnaseq{} reads 
 mapped to a complete reference transcriptome can be used to gather gene expression data, but 
 transcript expression analyses will be skewed by erroneous mapping from alternative splice variants.  
 For eukaryotes whose transcriptomes contain many splice variants, incomplete or erroneous 
@@ -321,7 +326,7 @@ among the available transcripts. In contrast, the false positive rate for multim
 is high for transcriptomes with many splice variants, while the unique mapping mode false positive 
 rate decreases substantially as more of the transcriptome is available.
 
-\subsection*{Calculating transcript-specific expression levels directly from RNAseq is challenging}
+\subsection*{Calculating transcript-specific expression levels directly from \rnaseq{} is challenging}
 
 Under a simple model of transcript expression in which expression levels are chosen randomly 
 and uniformly from four expression levels, gene- or transcript-family-level expression calculations 
@@ -348,19 +353,19 @@ coverage. One study on B-cells suggests that between 100 and 500 million observa
 necessary for accurate transcript quantification \cite{Toung2011}.  Current sequencing technology 
 is not yet close to providing both long reads and high sampling.
 
-\subsection*{Limits to mapping accuracy also imply limits to RNAseq assembly accuracy}
+\subsection*{Limits to mapping accuracy also imply limits to \rnaseq{} assembly accuracy}
 
-In the absence of deep sampling with long reads, most transcriptomes are inferred from RNAseq 
+In the absence of deep sampling with long reads, most transcriptomes are inferred from \rnaseq{} 
 using de novo or reference-based assembly methods.  Our read mapping simulations suggest that 
 there are fundamental limits to the ability of assembly methods to determine complete transcripts 
-from RNAseq, and indeed all assembly methods use more or less explicit models to deconvolve 
+from \rnaseq{}, and indeed all assembly methods use more or less explicit models to deconvolve 
 reads and read counts into distinct isoforms \cite{Trapnell2010,Schulz2012,Grabherr2011}.  Absent 
 direct observations, these inferences are necessarily of unknown quality; cross validation would 
 require the direct observation of long-range exon-exon correlations in single molecules, and none 
-of RNAseq, microarrays, or qPCR can provide such observations.  In practice, most methods simply 
+of \rnaseq{}, microarrays, or qPCR can provide such observations.  In practice, most methods simply 
 seek to maximize the concordance between the observed information and the assembled transcripts, 
 which is almost certainly sufficient to reconstruct the majority of exons and exon-exon junctions 
-correctly.  This is confirmed by the strong correlation between results from RNAseq, ESTs, and 
+correctly.  This is confirmed by the strong correlation between results from \rnaseq{}, ESTs, and 
 full-length cDNA sequencing in many model organisms, as well as bioinformatic validation of 
 protein-coding sequences.  Thus we believe that it is unlikely that many transcriptomes are systematically 
 inaccurate on a large scale.
@@ -380,8 +385,8 @@ of adaptive shrinkage approaches have been applied to this problem
 
 \section*{Conclusion}
 
-Our most basic conclusion is that RNAseq-based expression analysis is strongly dependent on 
-the quality and completeness of the reference transcriptome, suggesting that new RNAseq data 
+Our most basic conclusion is that \rnaseq{}-based expression analysis is strongly dependent on 
+the quality and completeness of the reference transcriptome, suggesting that new \rnaseq{} data 
 sets be integrated into existing references prior to expression analysis.  While many tools exist for 
 this purpose, it is difficult to evaluate their performance in light of the limits we observed for correct 
 transcript mapping and their implications for correct transcript reconstruction.
@@ -521,7 +526,7 @@ was determined as above.
 \includegraphics[width=6in]{20121024_longReadsMouse.pdf}
 \end{center}
 \caption{
-{\bf Per-read errors for single end reads from 20x coverage mouse transcriptome (no substitution errors).
+{\bf Read mapping errors for single end reads from 20x coverage mouse transcriptome (no substitution errors).
 }}
 \label{fig:longSeReads}
 \end{figure}
@@ -543,7 +548,7 @@ was determined as above.
 \includegraphics[width=6in]{20120820_longPairedEndComp.pdf}
 \end{center}
 \caption{
-{\bf Comparison of per-read errors for paired end reads from 20x coverage mouse transcriptome (no substitution error).
+{\bf Comparison of read mapping errors for paired end reads from 20x coverage mouse transcriptome (no substitution error).
 }}
 \label{fig:longPeReads}
 \end{figure}
@@ -553,7 +558,7 @@ was determined as above.
 
 \begin{table}[!ht]
 \caption{
-\bf{Per-read errors for single (SE) and paired end (PE) reads from simulated and real transcriptomes }}
+\bf{Read mapping errors for single (SE) and paired end (PE) reads from random (simulated) and real transcriptomes }}
 \begin{tabular}{|c|c|c||c|c||c|c||c|c||c|}
 \hline
 Organism & Num Trans & Error  & TP (d) & FP (d) & TP (u) & FP (u) & TP (m) & FP (m)\\
@@ -567,14 +572,16 @@ Random (PE) & 5000 & 1\% & 92\%& 0\%&92\%&0\%&92\%&0\%\\
 Mouse (PE) & 5000 & 1\% & 87\%& 5\%&81\%&0\%&92\%&12\%\\
 \hline
 \end{tabular}
-\begin{flushleft} Mapping parameters are default (d), unique (u), and multimap (m).
+\begin{flushleft} Mapping parameters are default (d), unique (u), and multimap (m).  True positives are reads 
+that were successfully mapped to their originating transcript.  False positives are reads that were 
+mapped to other transcripts (even if the read was an exact match to the alternate transcript).  
 \end{flushleft}
 \label{tab:toymodel}
 \end{table}
 
 \begin{table}[!ht]
 \caption{
-\bf{Per-read errors for single end reads from simulated transcriptomes with alternative splice variants artificially generated}}
+\bf{Read mapping errors for single end reads from random (simulated) transcriptomes with alternative splice variants artificially generated}}
 \begin{tabular}{|c|c|c||c|c||c|c||c|c||c|}
 \hline
 Organism & Num Trans & Error  & TP (d) & FP (d) & TP (u) & FP (u) & TP (m) & FP (m)\\
@@ -600,7 +607,8 @@ Organism & Num Trans & Error  & TP (d) & FP (d) & TP (u) & FP (u) & TP (m) & FP 
 90\% Isoforms & 5000 & 1\% & 37\% & 56\% & 23\% & 0\% & 92\% & 4722\%\\
 \hline
 \end{tabular}
-\begin{flushleft} Mapping parameters are default (d), unique (u), and multimap (m).
+\begin{flushleft} Mapping parameters are default (d), unique (u), and multimap (m).  Percentages indicate the amount of 
+the simulated transcripts that were generated from other, randomly generated transcripts. 
 \end{flushleft}
 \label{tab:toymodelsims}
 \end{table}
