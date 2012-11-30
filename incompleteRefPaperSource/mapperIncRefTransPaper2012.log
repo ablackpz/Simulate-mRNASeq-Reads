@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  30 NOV 2012 11:46
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  30 NOV 2012 12:25
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -251,89 +251,89 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) [1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-Missing character: There is no Ò in font cmr10!
-Missing character: There is no Ó in font cmr10!
-Missing character: There is no Ò in font cmr10!
-Missing character: There is no Ó in font cmr10!
-Missing character: There is no Ò in font cmr10!
-Missing character: There is no Ó in font cmr10!
-Missing character: There is no Ò in font cmr10!
-Missing character: There is no Ó in font cmr10!
+Missing character: There is no Ò in font cmti10!
+Missing character: There is no Ó in font cmti10!
+Missing character: There is no Ò in font cmti10!
+Missing character: There is no Ó in font cmti10!
+Missing character: There is no Ò in font cmti10!
+Missing character: There is no Ó in font cmti10!
+Missing character: There is no Ò in font cmti10!
+Missing character: There is no Ó in font cmti10!
  [2] [3] [4]
-Missing character: There is no Ð in font cmr10!
+Missing character: There is no Ð in font cmti10!
  [5]
-Missing character: There is no Ò in font cmr10!
-Missing character: There is no Ó in font cmr10!
-Missing character: There is no Õ in font cmr10!
-Missing character: There is no Õ in font cmr10!
+Missing character: There is no Ò in font cmti10!
+Missing character: There is no Ó in font cmti10!
+Missing character: There is no Õ in font cmti10!
+Missing character: There is no Õ in font cmti10!
 
 [6]
-Missing character: There is no Ò in font cmr10!
-Missing character: There is no Ó in font cmr10!
-Missing character: There is no Ò in font cmr10!
-Missing character: There is no Ó in font cmr10!
+Missing character: There is no Ò in font cmti10!
+Missing character: There is no Ó in font cmti10!
+Missing character: There is no Ò in font cmti10!
+Missing character: There is no Ó in font cmti10!
  (./mapperIncRefTransPaper2012.bbl [7] [8] [9])
-<20121023_mappingErrorsMaster.pdf, id=38, 614.295pt x 794.97pt>
+<20121023_mappingErrorsMaster.pdf, id=39, 614.295pt x 794.97pt>
 File: 20121023_mappingErrorsMaster.pdf Graphic file (type pdf)
 
 <use 20121023_mappingErrorsMaster.pdf>
-Package pdftex.def Info: 20121023_mappingErrorsMaster.pdf used on input line 20
-8.
+Package pdftex.def Info: 20121023_mappingErrorsMaster.pdf used on input line 47
+6.
 (pdftex.def)             Requested size: 433.62pt x 561.15749pt.
 
 
-LaTeX Warning: Float too large for page by 19.64961pt on input line 214.
+LaTeX Warning: Float too large for page by 19.64961pt on input line 482.
 
-<20121023_incRefGraphs.pdf, id=39, 614.295pt x 794.97pt>
+<20121023_incRefGraphs.pdf, id=40, 614.295pt x 794.97pt>
 File: 20121023_incRefGraphs.pdf Graphic file (type pdf)
 
 <use 20121023_incRefGraphs.pdf>
-Package pdftex.def Info: 20121023_incRefGraphs.pdf used on input line 219.
+Package pdftex.def Info: 20121023_incRefGraphs.pdf used on input line 487.
 (pdftex.def)             Requested size: 433.62pt x 561.15749pt.
 
 
-LaTeX Warning: Float too large for page by 19.64961pt on input line 225.
+LaTeX Warning: Float too large for page by 19.64961pt on input line 493.
 
-<20121023_transcriptExpression.pdf, id=40, 614.295pt x 296.10625pt>
+<20121023_transcriptExpression.pdf, id=41, 614.295pt x 296.10625pt>
 File: 20121023_transcriptExpression.pdf Graphic file (type pdf)
 
 <use 20121023_transcriptExpression.pdf>
-Package pdftex.def Info: 20121023_transcriptExpression.pdf used on input line 2
-30.
+Package pdftex.def Info: 20121023_transcriptExpression.pdf used on input line 4
+98.
 (pdftex.def)             Requested size: 433.62pt x 209.01698pt.
 
-<20121023_geneTranscriptFamExpression.pdf, id=41, 614.295pt x 294.22823pt>
+<20121023_geneTranscriptFamExpression.pdf, id=42, 614.295pt x 294.22823pt>
 File: 20121023_geneTranscriptFamExpression.pdf Graphic file (type pdf)
 
 <use 20121023_geneTranscriptFamExpression.pdf>
 Package pdftex.def Info: 20121023_geneTranscriptFamExpression.pdf used on input
- line 241.
+ line 509.
 (pdftex.def)             Requested size: 433.62pt x 207.69131pt.
 
-<20121024_longReadsMouse.pdf, id=42, 614.295pt x 406.51875pt>
+<20121024_longReadsMouse.pdf, id=43, 614.295pt x 406.51875pt>
 File: 20121024_longReadsMouse.pdf Graphic file (type pdf)
 
 <use 20121024_longReadsMouse.pdf>
-Package pdftex.def Info: 20121024_longReadsMouse.pdf used on input line 252.
+Package pdftex.def Info: 20121024_longReadsMouse.pdf used on input line 520.
 (pdftex.def)             Requested size: 433.62pt x 286.95552pt.
 
-<20121011_multimapReadsLongExample.pdf, id=43, 614.295pt x 332.91074pt>
+<20121011_multimapReadsLongExample.pdf, id=44, 614.295pt x 332.91074pt>
 File: 20121011_multimapReadsLongExample.pdf Graphic file (type pdf)
 
 <use 20121011_multimapReadsLongExample.pdf>
 Package pdftex.def Info: 20121011_multimapReadsLongExample.pdf used on input li
-ne 263.
+ne 531.
 (pdftex.def)             Requested size: 433.62pt x 234.99672pt.
 
-<20120820_longPairedEndComp.pdf, id=44, 614.295pt x 403.5075pt>
+<20120820_longPairedEndComp.pdf, id=45, 614.295pt x 403.5075pt>
 File: 20120820_longPairedEndComp.pdf Graphic file (type pdf)
 
 <use 20120820_longPairedEndComp.pdf>
-Package pdftex.def Info: 20120820_longPairedEndComp.pdf used on input line 274.
+Package pdftex.def Info: 20120820_longPairedEndComp.pdf used on input line 542.
 
 (pdftex.def)             Requested size: 433.62pt x 284.82993pt.
 
-Overfull \hbox (18.92336pt too wide) in paragraph at lines 342--358
+Overfull \hbox (18.92336pt too wide) in paragraph at lines 610--626
 [][] 
  []
 
@@ -343,13 +343,13 @@ Expression.pdf>] [15 <./20121024_longReadsMouse.pdf>] [16 <./20121011_multimapR
 eadsLongExample.pdf>] [17 <./20120820_longPairedEndComp.pdf>]
 (./mapperIncRefTransPaper2012.aux) ) 
 Here is how much of TeX's memory you used:
- 3548 strings out of 493633
- 52228 string characters out of 3143378
+ 3550 strings out of 493633
+ 52249 string characters out of 3143378
  133896 words of memory out of 3000000
- 6759 multiletter control sequences out of 15000+200000
- 7210 words of font info for 28 fonts, out of 3000000 for 9000
+ 6760 multiletter control sequences out of 15000+200000
+ 7556 words of font info for 29 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 38i,8n,38p,1993b,289s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,8n,38p,370b,291s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2011/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2011/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2011/texmf-dist/fonts/typ
@@ -357,11 +357,12 @@ e1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr7.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy7.pfb>
-Output written on mapperIncRefTransPaper2012.pdf (17 pages, 3021169 bytes).
+c/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmti10.pfb>
+Output written on mapperIncRefTransPaper2012.pdf (17 pages, 3044578 bytes).
 PDF statistics:
- 2035 PDF objects out of 2073 (max. 8388607)
- 813 compressed objects within 9 object streams
+ 2039 PDF objects out of 2073 (max. 8388607)
+ 816 compressed objects within 9 object streams
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
