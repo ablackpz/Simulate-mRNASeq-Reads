@@ -1,14 +1,16 @@
 #! /bin/bash                                                                    
 
 groups='Gallus_gallus.transIdgeneId.txt'
-mapped='DataSet232rep2E1R10G100_default.map'
+mapped='DataSet245rep1E1R10G100_default.map'
+full='DataSet245rep1E1R100G100_default.map.col1.geneExp'
 name='Gallus_gallus.allGeneNames.txt'
-ref='DataSet232rep2E1R100G100RandomReadsNames.txt'
+#ref='DataSet246rep2E1R100G100RandomReadsNames.txt'
 
 #awk '{print $1}' $mapped > $mapped'.col1'                                      
 #awk '{print $6}' $mapped > $mapped'.col6'                                      
-python getGeneReadCountsFromTranscriptMapping2.py $groups $mapped'.col6' $ref $mapped'.col6.geneExp' $mapped'.col1.geneExp'
-#cp 'DataSet235rep2E1R100G100_default.map.col1.geneExp' $mapped'.col1.geneExp'
+#python getGeneReadCountsFromTranscriptMapping2.py $groups $mapped'.col6' $mapped'.col1' $mapped'.col6.geneExp' $mapped'.col1.geneExp'
+python getGeneReadCountsFromTranscriptMapping2.py $groups $mapped'.col6' $mapped'.col1' $mapped'.col6.geneExp' $mapped'.col1.geneExp' 
+cp $full $mapped'.col1.geneExp'
 python combine-bowtie-bowtie-refFile-results2.py $name $mapped'.col6.geneExp' $mapped'.col1.geneExp' $mapped'.col6.col1.geneExp.combine'
 python calc-log2-diff-exp2.py $mapped'.col6.col1.geneExp.combine' $mapped'.col6.col1.geneExp.combine.log2diff2'
 awk '{print $4}' $mapped'.col6.col1.geneExp.combine.log2diff2' > $mapped'.col6.col1.geneExp.combine.log2diff2.nums'

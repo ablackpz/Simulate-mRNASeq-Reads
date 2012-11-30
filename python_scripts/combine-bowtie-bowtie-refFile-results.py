@@ -29,7 +29,10 @@ for newString in open(sys.argv[2]):
     newString = newString.rstrip()
     parts = newString.split('\t')
     parts[0] = parts[0].lstrip('>')
-    transcripts1[parts[0]] = parts[1]
+    if transcripts1.has_key(parts[0]):
+        transcripts1[parts[0]] = parts[1]
+    else:
+        print "New key in file 1 that is not present in ref file"
 #    genesK[parts[0]] = parts[1]
 #    print parts[0]
 
@@ -37,13 +40,15 @@ for newString in open(sys.argv[3]):
     newString = newString.rstrip()
     parts = newString.split('\t')
     parts[0] = parts[0].lstrip('>')
-#    name = parts[0].split(' ')
-    transcripts2[parts[0]] = parts[1]
+    if transcripts2.has_key(parts[0]):
+        transcripts2[parts[0]] = parts[1]
+    else:
+        print "New key in file 2 that is not present in ref file"
 #    genesB[parts[0]] = parts[1]
 #    print parts[0]
 
 for name in transcripts1:
-    print name, transcripts1[name], transcripts2[name]
+#    print name, transcripts1[name], transcripts2[name]
     outfile.write(name + '\t' + str(transcripts1[name]) + '\t' + str(transcripts2[name]) + '\n')
     count += 1
 #for gene in sorted(genesK.keys()):

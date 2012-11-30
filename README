@@ -1,3 +1,7 @@
 2012.07.27
 
 Scripts for producing Illumina single and paired end read data are in python scripts (see makeRandomTestData.py in particular).  Analysis scripts are also in python scripts.  Pipelines for running analyses are in bash scripts.
+
+2012.11.30
+
+Latex source and paper figures added.

@@ -33,6 +33,21 @@ def inputFastaSeq(filename):
             fastas[currId] = fastas[currId] + newString.rstrip()
     return fastas
 
+def inputFastaSeqCount(filename):
+    fastas = {}
+    count = 0
+    for newString in open(filename):
+        if newString[0] == '>':
+            currId = newString.rstrip()
+            currId = currId[1:]
+            fastas[currId] = ''
+        else:
+            fastas[currId] = fastas[currId] + newString.rstrip()
+        if not (count % 100):
+            print currId, len(fastas[currId])
+        count += 1
+    return fastas
+
 def checkForFasta(filename):
     try: 
         infile = open(filename, 'r')
