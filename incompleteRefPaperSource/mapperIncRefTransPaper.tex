@@ -1,0 +1,547 @@
+% Template for PLoS
+% Version 1.0 January 2009
+%
+% To compile to pdf, run:
+% latex plos.template
+% bibtex plos.template
+% latex plos.template
+% latex plos.template
+% dvipdf plos.template
+
+\documentclass[10pt]{article}
+
+% amsmath package, useful for mathematical formulas
+\usepackage{amsmath}
+% amssymb package, useful for mathematical symbols
+\usepackage{amssymb}
+
+% graphicx package, useful for including eps and pdf graphics
+% include graphics with the command \includegraphics
+\usepackage{graphicx}
+
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+\usepackage{color} 
+
+% Use doublespacing - comment out for single spacing
+%\usepackage{setspace} 
+%\doublespacing
+
+
+% Text layout
+\topmargin 0.0cm
+\oddsidemargin 0.5cm
+\evensidemargin 0.5cm
+\textwidth 16cm 
+\textheight 21cm
+
+% Bold the 'Figure #' in the caption and separate it with a period
+% Captions will be left justified
+\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
+
+% Use the PLoS provided bibtex style
+\bibliographystyle{plos2009}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+
+% Leave date blank
+\date{}
+
+\pagestyle{myheadings}
+%% ** EDIT HERE **
+
+
+%% ** EDIT HERE **
+%% PLEASE INCLUDE ALL MACROS BELOW
+
+%% END MACROS SECTION
+
+\begin{document}
+
+% Title must be 150 characters or less
+\begin{flushleft}
+{\Large
+\textbf{Effects of Incomplete Reference Transcriptomes on RNA-Seq Mapping for Higher Eukaryotes}
+}
+% Insert Author names, affiliations and corresponding author email.
+\\
+Alexis Black Pyrkosz$^{1}$, 
+Hans Cheng$^{1}$, 
+C. Titus Brown$^{2,\ast}$
+\\
+\bf{1} Avian Disease Oncology Laboratory, USDA, East Lansing, MI, USA
+\\
+\bf{2} Microbiology Department, Michigan State University, East Lansing, MI, USA
+\\
+$\ast$ E-mail: Corresponding ctb@msu.edu
+\end{flushleft}
+
+% Please keep the abstract between 250 and 300 words
+\section*{Abstract}
+
+
+\section*{Introduction}
+
+%describe situation - need to map reads to a variable quality ref with accuracy despite errors in data
+
+%describe problem - many mappers were designed for human, which has a good ref, and most have not been tested on non model organisms
+
+%describe organisms/transcriptomes - "The mouse was chosen for this effort because its genome has been sequenced, because its tissues could be obtained under rigorous quality control conditions, and because of its importance as a model for the study of human biology - www.genome.gov/13014330"
+
+Whole transcriptome sequencing using next-generation sequencing (NGS) technologies, or RNA sequencing (RNA-seq) has been growing in popularity for studying non model organisms in the fields of agriculture, evolution, and medicine (CITE).  With NGS technology evolving to the point where the cost is within the budgetary range of many funding agencies and the resultant data can be mined for a range of applications (CITE), an increasing number of labs are choosing NGS and RNA-seq for their research.  However, many of the NGS computational tools were developed for model organisms (E. coli, yeast, human...) (CITE) for which a complete genome and potentially a complete transcriptome is available.  In this study, we use simulation techniques to assess whether current RNA-seq computational tools are applicable for organisms that do not have a complete transcriptome.
+
+%"Recently, however, whole-transcriptome sequencing using next-generation sequencing (NGS) technologies, or RNA sequencing (RNA-seq), has started to reveal the complex landscape and dynamics of the transcriptome from yeast to human at an unprecedented level of sensitivity and accuracy.  -- Martin et al Nat Rev Genetics 2011"
+
+%"The cost advantage of NGS has already pushed whole genome sequencing budgets into a more acceptable range for numerous funding agencies, prompting an international consortium of scientists to propose sequencing 10,000 vertebrate species.  With the promise of even longer read lengths from evolving sequencing technology, our ability to create nearly complete genome sequences, even navigating repeat structures that have been resistant to all types of assembly methodology, is moving forward.  Efforts to optimize this approach are underway in our lab and many others with the goal of increasing the utility of de novo assemblies in comparative and experimental studies.  -- Ye et al Genome Biol 2011"
+
+\subsection*{RNA-seq as a platform for exploring gene expression}
+
+Many genome sequencing projects are focused on identifying genome sequences that are transcribed into functional mRNAs that affect downstream biology (CITE).  RNA-seq or cloning and sequencing of the cDNA is used for generating the transcriptome, a full set of transcripts that includes splicing isoforms.  Unlike genomic sequencing where the entire genome is sequenced at a given level, RNA-seq measures the expression level of individual transcripts, which can differ by up to three orders of magnitude within the same cell (CITE).  Differential gene expression has been used in a variety of different organisms, tissues, environmental conditions, disease states, etc to determine which genes/transcripts are up or down regulated between two samples.  While microarrays have traditionally served this same purpose, RNA-seq is superseding due to greater and more accurate information.
+
+An RNA-seq experiment begins by converting mRNA into a library of randomly fragmented cDNA.  Then one of the NGS technologies are applied: Illumina, Roche 454, or SOLiD.  Sequencing generates millions or billions of short reads either from one end of the cDNA fragments (single-end reads) or from both ends (paired-end reads).  The raw data consist of several gigabytes of short sequences with associated quality scores.  Illumina is the most common NGS technology owing to the higher number of reads produced at cost, despite being known for having a substitution error rate on the order of 1\% and single-end reads with a current maximum length of 100 bp.  Roche 454 offers reads between 400 and 500 bps, but with significantly lower sequencing depth for the same cost.  SOLiD ...  Because Illumina is the most widely used of these platforms, our simulations use Illumina-style reads for testing the RNA-seq computational tools.
+
+%"One of the primary goals of genome sequencing projects is to identify the genome sequences that are transcribed into functional mRNAs, so that full-length cDNAs can be isolated to allow further downstream biology, and functional and structural genomics.  The limitations of a priori genome annotation dictate that the transcriptome needs to be identified experimentally via cDNA cloning and sequencing.  -- Carninci et al Genome Res 2003"
+
+%"Identifying the full set of transcripts -- including large and small RNAs, novel transcripts from unannotated genes, splicing isoforms and gene-fusion transcripts -- serves as the foundation for a comprehensive study of the transcriptome -- Martin et al Nature Reviews Genetics 2011"
+
+%"RNA-Seq is quickly superseding the microarry based approaches for studying gene expression, splice isoforms, and novel transcribed regions.  The absolute measurement of gene expression using RNA-seq provides greater quantitative and qualitative insight, and accuracy than microarray.  RNA-seq combined with appropriate bioinformatics tools provides on a global scale in different cellular and biological contexts.  Although it poses statistical (availability of user-friendly and reliable software programs/statistical methods) and computational (availability of sufficient computational and storage resources) challenges, which are still limiting the adoption of this technology. -- Jain et al BriefFuncGenomics 2012."
+
+%"In general, a RNA-seq experiment includes the conversion of a population of mRNA into a library of randomly broken cDNA fragments with adaptors ligated to one or both ends.  This is followed by sequencing with or without PCR amplification from one end (single-end\_ or both ends (paired-end).  The read length varies from 30 to 400 bp depending on the sequencing technology used.  Three major NGS technologies are available for RNA-seq, including pyrosequencing-based Roche 454 GS-FLX, sequencing-by-synthesis based Illumina Genome Analyzer/HiSeq and sequencing-by-ligation based Life Technologies SOLiD (Sequencing by Oligo Ligation and Detection).  ... With reference to their use in gene expression profiling, all the three technologies have their pros and cons.  Roche 454 offers the advantage of longer reads (average of 400bp), which are more likely to be unequaly mapped as compared to those of short reads from Illumina and SOLiD technologies.  However, the number of reads generated per run is much less as compared to other two technologies.  The higher number of reads generated by Illumina and SOLiD technologies makes them more cost-effective and provides the advantage of high dynamic range of transcript expression detection and more accurate gene expression measurement.  If has been shown that a very high sequencing depth is required to detect the rare transcripts or isoforms, which is achievable by using short-read platforms.  In addition, the recent improvements in the Illumina and SOLiD sequencing technologies provide sufficiently large reads (up to 150bp), which will overcome the disadvantage of shorter read length.  Although Illumina and SOLiD offer similar advantages and disadvantages, the use of Illumina platform has superseded the SOLiD.  The advantage of Illumina technology has been demonstrated to be comparable to the microarray but superior in detection of low-expressed genes, alternative splice variants, and novel transcripts.  -- Jain et al Brief Func Genomics 2012"
+
+%"Most RNA-seq experiments take a sample of purified RNA, shear it, convert it to cDNA and sequence on a high-throughput platform, such as the Illumina GA/HiSeq, SOLiD or Roche 454.  This process generates millions of short (25 to 300 bp) reads taken from one end of the cDNA fragments.  A common variant on this process is to generate short reads from both ends of each cDNA fragment, known as paired-end reads.  The platforms differ substantially in their chemistry and processing steps, but regardless of the precise details, the raw data consist of a long list of short sequences with associated quality scores. -- Oshlack et al Genome Biol 2010"
+
+%"Although RNA-seq offers unprecedented level of sensitivity, it poses vastly increased bioinformatics challenges in data handling (storage and processing) and analysis to extract biologically relevant information.  A typical gene expression analysis experiment using RNA-seq involves four steps in data analysis.  First step is the quality control of the data in which poor-quality reads are eliminated or trimmed from ends to accelerate subsequent data analysis.  Secondly, the most important step is accurate mapping of sequencing reads to the corresponding reference genome//transcriptome.  This preliminary but crucial step is most computationally intensive and depends on the type of available sequence data (real length, amount of data, and data format).  In general, the reads that span exon junctions and map to multiple locations in the reference make the mapping step complicated.  In addition, sequencing errors and polymorphisms also present problems to read mapping.  The situation is further complicated by alternative splicing and presence of repetitive sequences in higher eukaryotes especially plants.  Although some solution to these problems (obtaining longer reads, removal of low-quality reads, trimming sequence reads, compilation of splice junction library and probabilistic assignment of the reads the map to multiple locations etc.) have been proposed, they further needs to be addressed carefully by developing computationally better methods.  -- Jain et al Brief Func Genomics 2012"
+
+%"Transcriptomes are comprised of many transcripts that are variable in length.  The complexity of assembling a transcriptome is further exacerbated by varying expression levels, resulting in an uneven distribution of reads amongst the diverse transcripts.  ... In addition, alternative splicing results in multiple isoforms, which share partial information.  -- Mundry et al Plos One 2012."
+
+%"the enormous sequencing depth (100-1000 reads per base pair of a transcript) of a typical RNA-seq experiment offers a near-complete snapshot of a transcriptome, including the rare transcripts that have regulatory roles -- Martin et al Nature Reviews Genetics 2011"
+
+%"sequence reads obtained from the common NGS platforms, including Illumina, SOLiD and 454, are often very short (35 - 500 bp).  As a result, it is necessary to reconstruct the full-length transcripts by transcriptome assembly... -- Martin et al Nature Reviews Genetics 2011"
+
+%"Sometimes, only one aspect of the transcriptome needs to be examined.  In a study of Alzheimer's disease, it was hypothesized that alternative splicing was involved in disease pathogenesis.  The authors assembled the transcriptome using a reference-based assembler and discovered two genes with alternative start sites and splicing patterns that may help to explain the progression of Alzheimer's disease.  -- Martin et al Nature Reviews Genetics 2011"
+
+%"Comparisons of genomes at different phylogenetic distances help to infer ancient and recent rearrangement evens in genome evolution and provide a more complete understanding of the mechanisms of genome evolution.  -- Kai et al Genome Biol Evol 2012."
+
+%"Making sense of RNA-seq data depends on the scientific question of interest.  For example, determining differences in allele-specific expression requires accurate determination of the prevalence of transcribed single nucleotide polymorphisms.  Alternatively, fusion genes or aberrations in cancer samples can be detected by finding novel transcripts in RNA-seq data.  In the past year, several methods have emerged that use RNA-seq data for abundance estimation, detection of alternative splicing, RNA editing and novel transcripts.  However, the primary objective of many biological studies is gene expression profiling between samples.  -- Oshlack et al Genome BIol 2010"
+
+%"Sequencing steady-state RNA in a sample, known as RNA-seq, is free from many of the limitations of previous technologies, such as dependence on prior knowledge of the organism, as required for microarrays and PCR. -- Oshlack et al Genome Biol 2010"
+
+%"Sequencing technology development continues its rapid pace with great promise for significant cost savings for de novo projects.  -- Ye et al Genome Biol 2011"
+
+%"The Illumina/Solexa Genome Analyzer was the second platform to reach market, and currently in the most widely used system.  The Illumina platform uses a sequencing-by-synthesis approach in which all four nucleotides are added simultaneously into oligo-primed cluster fragments in flow-cell channels along with DNA polymerase.  Bridge amplification extends cluster strands with all four fluorescently labeled nucleotides for sequencing.  The Genome Analyzer is widely recognized as the most adaptable and easiest to use sequencing platform.  Superior data quality and proper read lengths have made it the system of choice for many genome sequencing projects.  To date, the majority of published NGS papers have described methods using these host sequence data produced with the Genome Analyzer.  At present, the new Illumina HiSeq 2000 Genome Analyzer is capable of producing single reads of 2 x 100 bp (paired end reads), and generates about 200 Gbp of short sequences per run.  The raw base accuracy is greater than 99.5\%.  -- Zhang et al J Genet Genomics 2011"
+
+\subsection*{Computational methodology for RNA-seq}
+
+While it has been shown that high sequencing depth is required for detecting low abundance transcripts and isoforms, making it desirable to obtain a high sequencing depth (CITE), the sheer amount of data (millions to billions of reads) generated during sequencing complicates downstream computational analyses.  The crucial step in converting the reads to useful sequencing information is mapping the reads to a reference transcriptome. This reference is either a standard available from online databases such as Ensembl (CITE) or is built through de novo assembly of the reads.  Several NGS read mapping and alignment programs are available and most of them use either a fast indexing algorithm to quickly identify potential matches to the reference or an index based on counting short k-mers that are in both the read and the reference (CITE).  Most mappers are designed to allow mismatches between the read and the reference, owing to the substitution errors and indels that can result from the various sequencing platforms.  For large data sets, a tradeoff between speed/memory and accuracy must be made and most mappers contain parameters that users can tweak as appropriate for their data.  
+
+One parameter of importance for the current work addresses the multi mapping conundrum.  Multimap reads are reads that map equally well to several locations in the transcriptome.  The default for most mappers is to randomly select a position from those that match the read and report that position only.  Some mappers will always report the first position found as the matched position while others can be programmed to find a 'best' match according to a specified criterion.  This default results in rapid mapping, but also many erroneous matches that can lead to artificially higher/lower transcript expression levels further down the computational pipeline.  The other two common settings for this parameter are unique and multi mapping.  For the unique parameter, if a read matches equally well to two or more positions, then it is simply discarded.  While this prevents false positives from being reported, in the case of two highly similar isoforms, nearly all of the reads will be discarded, resulting in an artificially low expression level for both transcripts.  For the multi mapping parameter, all possible matches are reported.  While this guarantees that the correct location is reported, it also lists many incorrect positions that must be filtered out by another metric.  There have been several attempts to statistically allocate or distribute the multi map reads with varying levels of success (CITE).  It has been predicted that use of longer reads or paired-end reads is the ultimate way of solving this problem.  In this study, we show that longer reads are indeed a solution to multi map problem, but technology must advance to produce significantly longer reads than are currently available before the high false positive rates decrease to negligible levels.  
+
+
+%"At its simplest, the task of mapping is to find the unique location where a short read is identical to the reference.  However, in reality the reference is never a perfect representation of the actual biological source of RNA being sequenced.  In addition to sample-specific attributes such as SNPs and indels (insertions or deletions), there is also the consideration that the reads arise from a spliced transcriptome rather than a genome.  Furthermore, short reads can sometimes align perfectly to multiple locations and can contain sequencing errors that have to be accounted for.  Therefore, the real task is to find the location where each short read best matches the reference, while allowing for errors and structural variation.  -- Oshlack et al Genome Biol 2010"
+
+%"Although research into how best to align reads to a reference is ongoing, all solutions by necessity involve some compromise between the computational requirements of the algorithm and the fuzziness allowed in matching to the reference.  Almost all short read aligners use a strategy of a first pass heuristic match, which quickly finds a reduced list of possible locations, followed by a thorough evaluation of all candidate alignments by a complex local alignment algorithm.  Without this initial heuristic search to reduce the number of potential alignment locations, performing local alignment of millions of short reads would be computationally impossible on current hardware.  -- Oshlack et al Genome Biol 2010"
+
+%"Aligners also differ in how they handle 'multimaps' (reads that map equally well to several locations).  Most aligners either discard multi maps, allocate them randomly, or allocate them on the basis of an estimate of local coverage, although a statistical method incorporating alignment scores has also been proposed.  Paired-end reads reduce the problem of multi mapping, as both ends of the cDNA fragment from which the short reads were generated should map nearby on the transcriptome, allowing the ambiguity of multi maps to be resolved in most circumstances.  -- Oshlack et al Genome Biol 2010 "
+
+%"When considering reads from genomic DNA, mapping to a relevant reference genome is all that is needed.  HOwever, RNA-seq is sequencing fragments of the transcriptome.  This difference is dealt with in several ways.  Given that the transcriptome is 'built from' the genome, the most commonly used approach is to use the genome itself as the reference.  This has the benefit of being easy and not biased towards any known annotation.  However, reads that span exon boundaries will not map to this reference.  Thus, using the genome as a reference will give greater coverage (at the same true expression level) to transcripts with fewer eons, as they will contain fewer exon junctions.  Longer reads are more likely to cross exon boundaries, thus causing the fraction of junction reads to increase.  In order to account for junction reads, it is common practice to build exon junction libraries in which reference sequences are constructed using boundaries between annotated exons.  To map reads that cross exon boundaries without relying on existing annotations, it is possible to use the dataset itself to detect splice junctions de novo.  Another option is the de novo assembly of the transcriptome, for use as a reference, using genome assembly tools.  All de novo methods can identify novel transcripts and may be the only option for organisms for which no genomic reference or annotation is available.  -- Oshlack et al Genome Biol 2010"
+
+%"In general, the Poisson distribution forms the basis for modeling RNA-seq count data.  In an early RNA-seq study using a single source of RNA, sequenced on multiple lanes of an Illumina GA sequencer, goodness-of-fit statistics suggested that the distribution of counts across lanes for the majority of genes was indeed Poisson distributed.  -- Oshlack et al Genome BIol 2010"
+
+%"The NGS read mapping and alignment software typically use a fast indexing algorithm to rapidly identify potential matches in the reference sequence; a common indexing scheme is one originally developed for rapid text searches called the Burrows-Wheeler Transform.  Another popular choice is an index based on counting short kmers in common between the read and a candidate region of the reference genome.  BWA, Bowtie, and SOAP all use B-W indexing, while the others use kmers or another indexing scheme.  It is worth bearing in mind that while B-W based algorithmms tend to be faster than the other, this indexings theme degrades in the presence of small indels, and may suffer loss of mapping efficiency in experiments in which indels are common.  -- Stein et al Curr Prot Bioinfo 2011"
+
+%"Mapping NGS reads to a reference genome has several drawbacks.  Most obviously, it cannot even be applied if no reference genome exists, such as when sequencing a novel organism or analyzing metagenomic data (such as complex environmental samples).  Less obviously, reliance on a reference genome can make it more difficult to identify significant differences between the sample sequence and the reference; for example, areas of dense polymorphisms may be unmappable.  De novo sequence assembly packages allow NGS data to be assembled without a reference genome.  -- Stein et al Curr Prot Bioinfo 2011"
+
+\subsection*{Underlying assumptions in RNA-seq computation that are not necessarily valid for all organisms}
+
+The primary assumption made in current mappers is that the reference transcriptome is complete.  For model organisms used during development of these tools (human, mouse, yeast), the transcriptome has been built from the genome and the genome frequently has Sanger sequencing, BACs, hybrid and radiation maps (and what else....) forming the skeleton of the reference with NGS sequencing information incorporated.  For these organisms, the reference has been extensively refined and is available from online databases.  For many non model organisms, there is no reference available and the cost of obtaining physical/genetic maps is prohibitively high (CITE).  Researchers working on these organisms create their own reference using de novo assembly.  
+
+Constructing a de novo assembly requires overlapping short, potentially low quality reads into contigs and then linking these into supercontigs (CITE).  If Sanger sequencing or other prior information about the chromosome content is available, scaffolding can be used to further piece the supercontigs together (CITE).  Transcriptome assembly is more challenging than genome assembly owing to the varying sequence depth of the individual transcripts, strand specificity, and isoforms (CITE).  These challenges are less of an issue with bacteria, archaea, and lower eucarya because highly repetitive sequences and alternative splicing is limited (less than X\%).  However, higher eucaryal genomes can have significant repetition (up to X\% in species) and up to X\% isoforms, which the various assemblers are presently still struggling to resolve.  For this reason, many reference transcriptomes based solely on NGS data are incomplete and contain misassemblies.  Also, assembling a de novo transcriptome is a nontrivial task with potentially more than 128 GB of RAM and more than a week of computational time on supercomputing clusters (or the cloud) required.  While efforts are underway to improve assembly efficiency, the problem remains that the biology for higher eucarya is more complex.  
+
+%"However, the mapping approach has limitations.  First, the sample may contain sequence that is absent or divergent from the reference, for example, through horizontal transfer events in microbial genomes or at highly diverse loci, such as the classical HLA genes.  In such cases, short reads either cannot or are unlikely to map correctly to the reference.  Second reference sequences, particularly of higher eukaryotes, are incomplete, notably in the telomeric and pericentromeric regions.  Reads from missing regions will often map, sometimes with apparently high certainty, to paralogous regions, potentially leading to false variant calls.  Third, samples under study have either have no available sequence sequences or it may not be possible to define a single suitable reference, as in ecological sequencing.  Fourth, methods for variant calling from mapped reads typically focus on a single variant type.  HOwever, in cases in which variants of different types cluster, focus on a single type can lead to errors, for example, through incorrect alignment around indel polymorphisms.  Fifth, although there are methods for detecting large structural variants, such as using array comparative genomic hubridization (aCGH) and mapped reads, these cannot determine the exact location, size or allelic sequence of variants.  Finally, mapping approaches typically ignore prior information about genetic variation within the species.  -- Iqbal et al Nat Genetics 2012"
+
+%"We also estimated the rate of mis-assembled contains from the NGS assemblies relative to the referencee assembly by identifying contigs that were uniquely aligned to more than one chromosome, within sequence length cutoffs [chicken assembly].  ... While most are true mis-assemblies, as seen when they are examined manually, some could be examples of contigs mis-ordered in the reference assembley.  However, the BAC fingerprint map, genetic linkage and radiation hybrid maps, mRNA information, and extensive manual annotation have been incorporated into the reference assembly, making incorrect sequence placement in the reference less likely.  ... As expected, the majority of mis-assembly events in the 454/Newbler and Illumina/SOAP assemblies that were visually inspected were due to repeat structure flanking unique sequence.  -- Ye et al Genome Biol 2011"
+
+%"Using several assembly quality metrics, the critical question we wished to address was how do de novo NGS assemblies compare to the Gallus galls 2.1 reference, an assembly based on well-established Sanger data.  Our results have validated previous reports that the assembly of large (<1 Gbp) vertexrate genomes is possible using both 454 and Illumina data.  The NGS assemblies discussed herein represent advancements in our ability to assemble and analyze large genomes using NGS, further diminishing the need for solely relying on Sanger sequencing in de novo genome projects and presenting an opportunity to explore hybrid assemblies that utilize reads from multiple sequencing platforms, especially for existing low coverage Sanger projects.  -- Ye et al Genome Biol 2011"
+
+%"Overall, our estimates of the rate of mis-assembly events within NGS assemblies, as compared to the reference assembly, show an advantage to the lower cost Illumina/SOAP assembly.  In practice, repeat element expansion and organization in the genomes of other more complex species will determine if comparable assembly accuracy is achievable.  Importantly, even Sanger based draft assemblies are not complete in the accurate representation of segmental duplications but this is much more a problem in NGS assemblies.  -- Ye et al Genome Biol 2011"
+
+%"The discovery of novel sequence not found in the current chicken reference assembly was another important goal of these NGS assembly experiments.  The chicken genome is rich with high GC micro chromosomes that are typically underrepresented by whole-genome Sanger sequencing approaches compared to the macro chromosomes.  These high GC regions are also known to be gene rich; thus, their under-representation is a possible culprit for initial low gene number estimates.  An important question, then, is whether NGS can be used to recover these GC-rich regions and other sequences not captured in existing Sanger-based draft assemblies.  ... In appears NGS can be a useful means to capture missing sequences in draft assemblies that were built using Sanger data.  -- Ye et al Genome Biol 2011"
+
+%"Clearly, there is an increasing need for robust gene modeling algorithms that can take such fragmentation into account.  -- Ye et al Genome Biol 2011"
+
+%"Whole genome assemblies are defined as hierarchical structures of sequence units or 'contigs', built from overlapping sequence reads, that are linked together physically into higher order 'supercontigs'.  How completely one can reconstruct the genome of a species de novo is dependent on a number of genomic properties, including repeat content, heterozygosity and ploidy, as well as the sequencing platform used to generate the primary data.  ... The emergence of NGS technologies has led to the promise of rapidly generating de novo genome assemblies for a wide variety of species, including vertebrates with large complex genomes.  While the use of NGS data is now an establish paradigm for producing microbe assembles, constructing highly contiguous assemblies using NGS data from higher organisms has been challenging.  -- Ye et al Genome Biol 2011"
+
+%"Reconstructing a comprehensive transcriptome from short reads has many informatics challenges.  Similar to short-read genome assembly, transcriptome assembly involves piecing together short, low quality reads...Although these tools [assemblers] have achieved reasonable success in the assembley of genomics, they cannot be directly applied to transcriptome assembly, mainly because of three considerations.  First, whereas DNA sequencing depth is expected to be the same across a genome, the sequencing depth of transcripts can vary by several orders of magnitude.  Many short-read genome assemblers use sequencing depth to distinguish repetitive regions of the genome, a feature that would mark abundant transcripts as repetitive.  Sequencing depth is also used by assemblers to calculate an optimal set of parameters for genome assembly, which would probably result in only a small set of transcripts being favored in the transcriptome assembly.  Second, unlike genomic sequencing, in which both strands are sequenced, RNA-seq experiments can be strand-specific.  Transcriptome assemblers will need to take advantage of strand information to resolve overlapping sense and antisense transcripts.  Finally, transcriptome assembly is challenging, because transcript variants from the same gene can share eons and are difficult to resolve unambiguously.  Given the complexity of most transcriptomes and the above challenges, exclusively reconstructing all of the transcripts and their variants from short reads has been difficult.  -- Martin et al Nature Reviews Genetics 2011"
+
+%"There are two main practical issues with De Bruijn assemblers at the moment.  The first is that most of the software packages are memory hogs: typically eukaryotic genomes require large-memory machines with a minimum of 128 GB RAM.  The second caveat is that the tools for visualizing and manipulating De Bruijn graphs re still in their infancy, making it harder to leverage the full information contained within the data structure.  -- Stein et al Curr Prot Bioinfo 2011"
+
+%"The primary goal of current algorithms and computing for short-read assembly with NGS technologies is to increase read length.  This goal will likely be achieved by the development of single-molecule sequencing technologies.  Certain improvements in existing NGS technologies, such as mate-paired short reads, may also make this goal attainable.  -- Zhang et al J Genet Genomics 2011"
+
+%"However, the most commonly used assemblers for Illumina data (SOAPdenovo, Velvet, SSAKE do not use quality values for assembly.  Thus there is no standard treatment for poor quality bases of Illumina reads -- Mende et al Plos One 2012."
+
+%For renference-based assembly " RNA-seq reads are aligned a reference genome using a splice-aware aligner.  Second, overlapping reads from each locus clustered to build a graph representing all possible isoforms.  The final step involves traversing the graph to resolve individual isoforms.  ... Cufflinks creates an overlap graph from all of the reads that align to a single locus and then traverses this graph to assemble isoforms by finding the minimum set of transcripts that 'explain' the intron junctions within the reads (that is, a minimum path cover of the graph).  Scripture, by contrast, constructs a splice graph containing each base of a chromosome and adds edges between bases if there is a read that joins the two bases.  Scripture then finds all paths through the graph that have a statistically significant read coverage.  These differences in graph con structure and traversal methods suggest that Cufflinks is more conservative in its choice of which transcripts to re-construct, whereas Scripture may produce a larger set of transcripts from a locus. -- Martin et al Nature Reviews Genetics 2011"
+
+%"Reference-based transcriptome assembly is easier to perform for the simple transcriptomes of bacterial, archaeal, and lower eukaryotic organisms, as these organisms have few introns and little alternative splicing. ... Plant and mammalian transcriptomes have complex alternative splicing patterns and are difficult to assemble from short reads.  -- Martin et al Nature Reviews Genetics 2011"
+
+%"The success of reference-based assemblers depends on the quality of the reference genome being used.  Many genome assemblies, except those of a few model organisms, contain hundreds to thousands of misassembles and large genomic deletions, which may lead to misassembled or partially assembled transcriptomes.  Errors introduced by short-read aligner are also carried over into the assembled transcripts.  Spliced reads that span large introns can be missed by aligners often only search for introns that are smaller than a fixed length to reduce the required computational power.  Also, aligners must successfully deal with reads that align equaly well to multiple places in the genome.  If these 'multi reads' are excluded altogether, then this will leave gaps in the reference-based assembly in regions that cannot be mapped uniquely.  But if these reads are included by random assignment, then they could lead to the formation of transcripts from a region of the genome that has no transcription. -- Martin et al Nature Reviews Genetics 2011"
+
+%"The de novo transcriptome assembly strategy does not use a reference genome: it leverages the redundancy of short-read sequencing to find overlaps between the reads and assembles them into transcripts.  ... they assemble the data set multiple times using a de Bruijn graph-based approach to reconstruct transcripts from a broad range of expression levels and then post-process the assembley to merge contains and remove redundancy.  By contrast, other assemblers directly traverse the de Bruijn graph to assemble each isoform.  Whereas most of the short-read de novo assemblers created to date were developed and optimized using short-read data sets, longer second generation reads, such as 454 reads, can also be integrated into de novo transcriptome assemblies, which may improve the ability to resolve alternative isoforms.  -- Martin et al Nature Reviews Genetics 2011"
+
+%"The do novo assembly of bacterial, archaeal, and lower eukaryotic transcriptomes is straightforward.  ... De novo assembly of higher eukaryotic transcriptomes is much more challenging, not only because of the larger data set sizes but also because of the difficulties involved in identifyying alternatively spliced variants.  -- Martin et al Nature Reviews Genetics 2011"
+
+%"For transcriptome assembly, longer reads are generally preferred, as they greatly reduce the complexity of the assembly.  It is worth noting, however, that the problem posed by short reads can be alleviated by using a paired-end protocol, in which 75-100 bp are sequenced from both ends of short DNA fragments (100-250 bp), and the overlapping reads are computationally joined together to form a longer read.  Paired reads from long inserts (500-1000 bp) offer long-range exon connectivity, in a similar way to reads obtained using 454 technology.  -- Martin et al. Nature Reviews Genetics 2011"
+
+%"Although it may be tempting to simply assume that longer contains represent a better assembly, this might not necessarily be the case e.g. if reads of different transcripts are concatenated.  -- Mundry et al Plos One 2012."
+
+%"The best performing assembler does not necessarily always match well with reference sequences, even when these references originate from the same species because the transcriptome varies depending on tissue, time point, and abiotic factors.  Due to some sequence similarity between transcripts, reads originating from different transcripts can be merged into one contig during the assembly process.  Without knowledge of the origin of reads, it is difficult to determine the extent to which an assembler produces chimeric contigs, i.e. contains containing reads from different transcripts -- Mundry et al Plos One 2012."
+
+%"Transcriptome assemblies are especially challenging since genes with multiple transcripts are difficult to distinguish using sequence information only.  -- Mundry et al. Plos One 2012."
+
+%"As expected, genes with a single transcript isoform showed a lower average proportion of misplaced reads per contig in all assemblies.  This indicates, that no assembler performed particularly well in assembling genes with multiple splicing variants, reflecting the specific challenges of assembling transcriptome data.  --  Mundry et al Plos One 2012."
+
+%"Expression counting is not trivial for transcriptomes with extensive alternative splicing: transcripts often share some exons, causing uncertainty as to which transcript each read belongs to.  -- Martin et al. Nature Reviews Genetics 2011"
+
+%"The quantification of abundance of multiple transcript isoforms of same gene and multiple genes within same gene family is challenging.  A few programs, such as ALEXA-seq, MMSEQ and Cufflinks support the estimation of isoform abundance based on different methods.  However, these methods have certain advantages and disadvantages and thus need to be considered carefully.  Fruther, the evaluation of various statistical methods has showed the normalization and differential expression analysis strategies affect the gene expression results substantially and the issue becomes more important for lowly expressed genes.  -- Jain et al Brief Func Genomics 2012"
+
+\subsection*{Complexity of higher eukaryotic genomes}
+
+There are two primary areas of complexity that affect de novo transcriptome assembly in higher eucarya: sequence repeats and alternative splice variants.  Sequence repeats... Alternative splicing ...
+
+%"Two-thirds or more genes in human and mouse contain at least one alternative exon, and it is known that mammalian organs comprising many specialized cell types such as the brain are associated with relatively complex alternative splicing patterns.  -- Calarco et al Genes \& Dev 2007"
+
+%"Comparisons of human and mouse transcript sequences have revealed that <20\% of alternative splicing events have been conserved during the ~80-90 million year interval separating these species.  -- Calarco et al Genes \& Dev 2007"
+
+%"Despite an overall sequence identity  between human and chimpanzee genomic coding regions of 98\%-99\%, we observe that 6\%-8\% of surveyed alternative exons display pronounced splicing level differences.  These differences aftect a primarily non overlapping subset of genes compared with the subset of genes that display differences in steady-state transcript levels between humans and chimpanzees.  Alternative splicing differences between humans and chimpanzees are consistently detected when comparing corresponding cell and tissue types from multiple individuals from each species, and the associated genes have diverse and important functional roles, including regulation of gene expression, signal transduction, apoptosis, immune defense and disease. ... Our results thus provide evidence that alternative splicing changes have evolved rapidly and in parallel with changes in transcriptional regulation, affecting an additional set of genes and associated gene functions.  The identification of alternative splicing differences between humans and chimpanzees provides a new basis for understanding the molecular mechanisms underlying the evolution of primate species-specific characteristics. -- Calarco et al Genes \& Dev 2007"
+
+%"Over the years, fugu genome has served as a valuable reference genome not only for discovering genes and gene regulator elements in the human genome, but also for gaining novel insights into the organization and evolution of vertebrate genomes.  However, because of the granular nature of the genome assembly and the low resolution of the genetic map, the utilization of fugu genome has been limited for global comparisons that address questions related to chromosome architecture and genome evolution.  -- Kai et al Genome Biol Evol 2012"
+
+%"An average human gene is 28,000 nucleotides long and consists of 8.8 eons of ~120 nucleotides that are separated by 7.9 introns.  Although the eons are relatively small and embedded within large intron sequences, the splicing machinery recognizes the exons with remarkable precision, removes the introns from the pre-mRNA molecule and ligates the eons to form a mature mRNA.  The large number of eons per gene enables the splicing machinery to splice-in different sets of eons from a single pre-mRNA, generating different types of mRNA from a single gene.  Bioinformatics analysis indicates that 35-65\% of human genes are involved in alternative splicing, which contributes significantly to human proteom complexity and explains the numerical disparity between the low number of human protein-coding genes (~26,000) and the number of human proteins, the latter of which is estimated to be more than 90,000.  -- Ast et al Nat Rev Genetics 2004"
+
+%"Although there are introns in the genomes of most eukaryotes, alternative splicing is prevalent only in multicellular eukaryotes.  The yeast Saccharomyces cerevisiae has introns in only ~3\% of its genes (~253 introns) and only 6 genes have 2 introns.  -- Ast et al Nat Rev Genetics 2004"
+
+%"There are five major forms of alternative splicing.  Exon skipping, also know as cassette exon, accounts for 38\% of the alternative splicing events conserved between human and mouse genomes.  Alternative 3'ss and 5'ss account for 18\% and 8\% of the conserved events, respectivelyy.  Intron retention is responsible for less than 3\% of the alternative splicing events that are conserved in human and mouse genomes.  Finally, there are more complex events that account for the remaining 33\% of the alternative splicing events and include mutually exclusive events, alternative transcription start sites and multiple polyadenylation sites. -- Ast et al Nat Rev Genetics 2004"
+
+%"Alternatively spliced exons possess certain features that distinguish them from constitutively spliced ones.  Conserved alternatively spliced eons are usually flanked by intronic sequences that are found in both human and mouse genomes, a feature that only rarely found in constitutively spliced exons.  In the case of exon skipping, both intron regions that flank the exon are conserved, and for alternative 5' and 3' splicing events, the conservation is greater near the alternative splice site.  These conserved intronic sequences are probably involved in the regulation of alternative splicing.  Alternative eons that are conserved between the human and mouse possess other characteristics.  For example, they tend to be smaller and their length (in nucleotides) is divisible by 3, which distinguish them from constitutively spliced exons.  Although alternatively spliced eons possess unique features, alternatively and constitutively spliced genes have similar amino-acid usage, indicating that, overall, alternatively and constitutively spliced genes share a high degree of similarity.  In fact, in 66\% of the alternatively spliced genes the longer form is ancestral, whereas the shorter form is associated mostly with exon skipping.  De novo emergence of eons, rather than exon duplication, accounts for the other 34\% of alternatively spliced genes.  This indicates that constitutively spliced eons become alternatively spliced exons (mostly by exon skipping) through evolution -- Ast et al Nat Rev Genetics 2004"
+
+%"Human-mouse comparative analysis revealed that alternative splicing is often associated with recent exon creation and/or loss.  So alternative splicing has the potential to create species-specific alternatively spliced eons.  Two processes are known to create new eons that are often alternatively spliced: exon duplication and exoneration of intronic sequences.  Young, alternatively spliced eons that are at an early stage in their evolution have the potential to prove the minimal conditions required to regulate their splicing pattern.  -- Ast Nat Rev Genetics 2004"
+
+%"High-quality, full-length cDNA sequences mapped to a high-quality complete genome assembly are crucial for the comprehensive analysis of splice variation.  -- Zavolan et al Genome Res 2002"
+
+%"we found that a relatively large proportion of the genes with splice variants incur splice variation in the terminal eons in such a way that the respective exon is entirely spliced out in another transcript of the same gene.  A total of 31\% of the genes with splice variation have alternative initial eons, and 25\% have alternative terminal eons (some genes have both types of variants).  These numbers are comparable with the number of genes with cryptic internal eons (35\%).  The apparent loss of sequence during the sequencing process is more extensive in the case of genes with splice variation.  This suggests that the choose of alternative transcription start and polyadenylation signals frequently alters the splicing pattern.  In particular, alternatively transcription start biases the splicing process toward the use of a cryptic splice site, whereas alternative polyadenylation tends to generate terminal eons that extend beyond a 3' splice site.  -- Zavolan et al Genome Res 2002"
+
+%"Exon inclusion into mature mRNA is a complex choice whose outcome is influenced by a variety of factors.  Many exons are 'cryptic' in the sense that they are included in some but not all transcripts, through mechanisms that are presently not completely understood.  -- Zavolan et al Genome Res 2003"
+
+%"we estimate at present that the frequency of multiexon mouse genes that have multiple splice forms is at least 41\% and may be as high as 60\%. -- Zavolan et al Genome Res 2003"
+
+%"The real value is expected to be even higher, as many of the variants generated in vivo are rare, specific to tissues and developmental stages.  ... Some of the clusters for which we have not yet found any splice variants will eventually acquire splice forms as more transcripts are sequenced.  -- Zavolan et al Genome Res 2003"
+
+%"The use of alternative transcription in these cases indicates that the alternative splice forms are differentially expressed and are, therefore, functional.  -- Zavolan et al Genome Res 2003"
+
+%"In genomics, reference-based assembly is often performed to map the number of short reads to a human reference genome which creates challenges for the algorithms and computing of alignment.  Since repetitive sequences are widely distributed across the entire human genome, some short reads will align equally to multiple chromosomal locations.  This is one of the reasons multiple-fold coverage of a given region is required for NGS and why further resequencing with Sanger methodology is often needed to ascertain the genetic variant detected in short reads.  -- Zhang et al J Genet Genomics 2011"
+
+%"While the low repetitive content (approximately 10\%) of the chicken genome limits the direct modeling of assembly quality expectations for genomes with higher repeat complexity, such as mammals, there are several analyses that can be performed equally well on NGS and Sanger-based assemblies. -- Ye et al Genome Biol 2011"
+
+%"The intermediate-sized chicken genome (1.2 Gbp) serves as a good starting point to test and optimize algorithms prior to assembling mammalian genomes.  For microbial genomes, short insert libraries are sufficient to produce high quality assemblies.  When considering larger genomes, longer reads and libraries with larger insert sizes are necessary to span longer repeats.  -- Ye et al Genome Biol 2011"
+
+%"we present evidence the NGS assembly quality is sufficient to obtain coverage of the majority of genic content from a moderately sized vertebrate genome, with suitable contiguity for many genomic analyses, and uncover previously un-represented sequences.  ... we predict the advancement and integration of long-span paired-end libraries will ultimately be needed to produce robust and highly contiguous NGS assemblies with greater coverage of entire gene footprints.  Thus, users of NGS assemblies should be aware of these current benefits and limitations. -- Ye et al Genome Biol 2011"
+
+\subsection*{Goals of this study}
+
+In this study, we use simulation to examine the effects of incomplete reference transcriptomes on RNA-seq mapping.  We first characterize the false positive rates that are occur when mapping reads to simulated and real transcriptomes, thereby showing how isoforms cause significant error in mapping, which increases as the reference is less complete.  We perform mapping with three common mapping programs and show that isoforms are a problem for all of them, indicating that the isoform problem is a general issue.  We then suggest that clustering transcripts likely to be isoforms is a means of temporarily handling the isoform problem for mapping.  We finish by showing that increasing the length of the reads or using paired end reads will greatly improve the false positive rate due to isoforms, but not completely resolve it.
+
+%Mouse: "In our study we created simulated reads based on a description of the mouse transcriptome (Mus ensembl).  The mouse data set was chosen due to the comprehensive amount of data available "and the complexity of organism is roughly similar to that of agricultural non model organisms being studied (the chicken).  Adapted from Mundry et al Plos One 2012.
+
+%Unsorted:
+
+"DNA sequence reads from Illumina sequencers, one of the most successful of the second-generation technologies, range from 35 to 125 bp in length.  Although sequence fidelity is high, the primary errors are substitution errors, at rates of 0.5-2.5\% (as we show in our experiments), with errors rising in frequency at the 3' ends of reads." -- Kelley et al Genome Biol 2010
+
+"Sequencing errors complicate analysis, which normally requires that reads be aligned to each other (for genome assembly) or to a reference genome (for detection of mutations).  Mistakes during the overlap computation in genome assembly are costly; missed overlaps may leave gaps in the assembly, while false overlaps may create ambiguous paths or improperly connect remote regions of the genome.  In genome re-sequencing projects, reads are aligned to a reference gnome, usually allowing for a fixed number of mismatches due to either SNPs or sequencing errors.  In most cases, the reference gnome and the gnome being newly sequenced will differ, sometimes substantially.  Variable regions are more difficult to align because mismatches form both polymorphisms and sequencing errors occur, but if errors can be eliminated, more reads will align and the sensitivity for variant detection will improve." -- Kelley et al Genome Biol 2010
+
+"The availability of high-throughput sequencing technology not only increases sequencing throughput but also allows for simultaneous sequencing of a large number of samples [6,7] in addition to decreasing time and cost.  These merits open the door to high-throughput re-sequencing and genotyping of various rice strains." -- Li et al Plos One 2012
+
+"While microarrays have been instrumental in our understanding of transcription, we have started to reach limitations in their applicability (Bloom 2009).  Microarray technology (like other hybridization techniques) has a relatively limited dynamic range for the detection of transcript levels due to background, saturation and spot density and quality.  Microarrays need to include sequences covering multiple strains, as mismatches can significantly affect hybridization efficiency and hence oligonucleotide probes designed for a single strain may not be optimal for other strains.  This may lead to a high background due to nonspecific or cross-hybridization.  In addition, comparison of transcription levels between experiments is challenging and usually requires complex normalization methods (Hinton 2004).  Hybridization technologies such as microarrays measure a response in terms of a position on a spectrum, whereas cDNA sequencing sores in number of hits for each transcript, which is a census-based method.  The census-based method used in sequencing has major advantages in terms of quantitation and the dynamic range achievable, although it also raises complex statistical issue in data analysis (Jiang 2009 and Oshlack 2009).  Finally, microarray technology only measures the relative level of RNA, but does not allow distinction between de novo synthesized transcripts and modified transcripts, nor does it allow accurate determination of the promotor used in the case of de novo transcription.  Many of these issues can be resolved by using high-throughput sequencing of cDNA libraries (Hoen 2008), and jointly tiling microarrays and cDNA sequencing can be expected to lead to a rapid increase in data on full microbial transcriptomes."  -- Aliet et al Fems Microb Lett 2009
+
+"The Roche 454 sequencing technology is based on pyrosequencing in micro reactors on a pico titer plate (Margulies 2005), and its strongest features are the generation of long sequencing reads and the relative speed of the sequencing run (measured in hours).  Its disadvantages lie in the smaller amount of data generated (approximately 0.25-1Gbp sequencing information per plate using 454 GS FLX and Titanium systems) and hence the relatively high cost, and its its difficulty in handling homopolymeric DNA sequences.  The Illumina GA technology is based on adapter ligation, followed by anchoring to a prepared substrate, followed by local in situ PCR amplification and sequencing using fluorophore-labelled chain terminators (Bennett 2005).  Sequences obtained by Illumina sequencing are usually 35-75 nt long, but advances in the technology are expected to result in longer eradlengths (up to 125 nt) soon.  Advantages of the Illumina technique are the large amounts generated (5-10 Gbp total per run), its sequencing accuracy and the relatively low price per Gbp.  However, runtimes are measured in days, and increasing the read length will increase rutimes significanty, and the images require very large storage space.  Because shorter reads may be more difficult to accurately map on genomes (especially those with repeated sequences), operators will have to select the right balance between read length and running time/cost.  Finally, the ABI SOLiD ethnology uses amplified DNA on beads, which are bound to glass slides.  The amplified DNA is sequentialy hybridized with short defined oligonucleotides, which contain known 3' dinucleotides and a specific 5' fluorophore.  The oligonucleotide complementary to the template at its 3' dinucleotide is ligated to the 5' end of the 5'-elongating complementary strand, and after fluorophore identification, the 5' remainder of the oligonucleotide is cleaved to prepare for the next cycle of oligonucleotide annealing and ligation.  Repeated cycles of DNA synthesis and melting allow for color-recognition of each base of the DNA sequence (Shendure 2005).  The SOLiD technology generates reads of 35-50 nucleotides.  The advantages are the high fidelity of the sequences obtains, which makes the technology excellently suited for SNP analysis, and the generation of large datasets (5-15 Gbp total per run).  The disadvantages are similar to those of Illumina sequencing." -- Aliet Fems Microb Lett 2009
+
+"high-throughput sequencing of the transcriptome of a cell (RNA-seq or mRNA-seq) was first described for eukaryotic cells, including the yeasts Saccharamyces cerevisae and Schizosaccharomyces bombe (Nagalakshmi 2008 and Wilhelm 2008), mouse organs and embryonic stem cells (Cloonan 2008 and Mortazavi 2008), human cell lines (Sultan 2008) and the plant Arabidopsis thaliana (Lister 2008).  IN these studies, transcriptome sequencing was high informative, and allowed for investigation of levels of transcripts as well as alternative splicing events." -- Aliet Fems MIcrob Lett 2009
+
+"Somewhat unexpectedly, the complexity of eukaryotic genes, compounded by the enormous repetitive content of mammalian genomes, has frustrated the best efforts to obtain a clear 'periodic table'-like compilation of mammalian genes so far [1,14].  Experimental validation, combined with continued advances in bioinformatics and completion of a larger set of genome sequences are certain to clarify and expand our current genome annotation." -- Babushok et al Cell Mol Life Sci 2007
+
+"The repertoire of mammalian protein-coding genes is strikingly similar, suggesting that the enormous interspecies phenotypic variation is caused by elaboration on the existing gene structures rather than by de novo invention of genes.  The closely related chimpanzee genome contains no genes lacking a human homolog, and the typical chimpanzee gene differs from its human counterpart by only two amino acids."  -- Babushok et al Cell Mole Life Sci 2007
+
+"Combining existing domains in novel gene architectures, also known as exon or domain shuffling, has been estimated to have involved up to 20\% of eukaryotic eons [21].  ... Moreover, there are several hundred cases of modular proteins thought to have arisen by exon shuffling; most notable examples include blood coagulation factors and extracellular matrix constituents.  Thus, extensive domain shuffling resulted in a great boost in complexity of domain architectures, and, combined with differential gene family expansions and their subsequent adaptive evolution, it provides the best working explanation for the N-value paradox [27] -- an apparent disconnection betweenn a greatly increased phenotypic complexity of higher eukaryotes and their relatively small number of seemingly derivative genes [1]."  -- Babushok et al Cell Mol Life Sci 2007
+
+"Dozens of individual novel gene studies, together with recent genome-wide surveys of psuedogenes and EST databases point to the following three general mechanisms that alone, or in combination, give rise to new genes: (1) atypical splicing of existing genes, selected over time, (2) DNA duplication, and (3) retrotransposition.  A fourth mechanisms, acquisition of genes by horizontal transmission, is a well-known force in prokaryote evolution, but is not known to have contributed to genome evolution in vertebrates [28-33], and will not be discussed further here."  -- Babushok et al Cell Mol Life Sci 2007
+
+"Analyses of EST databases and exon-junction microarrays have revealed that as many of 42-74\% of all human genes have at least two splice variants [1, 34, 35], an increase from the estimated 40\% and 22\% of alternatively spliced genes in fly and worm, respectively [1,26]; in yeast only a few genes contain introns and are spliced." -- Babushok Cell Mol LIfe Sci 2007
+
+"The repertoire of alternative splicing events includes omission of eons, incorporation of alternative eons, alternative transcriptional starts and first eons, premature termination with alternative polyadenylation signal, and subtle modifications by alternative splice acceptor or splice donor sites within the framework of the existing exons." -- Babushok et al Cell Mol Life Sci 2007
+
+"These events represent a tremendous addition to the coding capacity and functional interactions within the human proteome [38].  While some alternative splicing events are thought to result from stochastic variation in spliceosome binding [37], there is evidence for differential distribution of alternatively spliced genes among different tissues, with the highest prevalence reported in the functionally complex brain, testis, and livel [35, 39].  Furthermore, several cases where alternative splicing is tightly regulated are known, including alpha-tropomyosin [40], troponin T [41], and PTCH1 oncogene [42]."  -- Babushok et al Cell Mol LIfe Sci 2007
+
+"Notably, the combination of single-gene alternative splicing and intergenic splicing represents the most common mechanism of novel protein creation.  WHile these creative splicing processes do not generally alter the total gene number ..., they are frequent, ubiquitous and create innovative gene products at low cost to the host.  In fact, inclusion of intronic sequences as alternative exons is the only known context for de novo exon origination; approximately 2300-2700 novel eons in rodent transcriptome are thought to have been formed by this mechanism [59,60]."  -- Babushok et al Cell Mol LIfe Sci 2007
+
+"Importantly, ~35\% of alternatively spliced transcripts [67] and 56-64\% TICs [45,46] cause a frame-shift and a premature stop codon, and are expected to undergo nonsense mediated decay [68].  Nevertheless, rapid evolution of new eons occasionally creates functional protein-coding regions that may offer a selective advantage to the host; such alternatively spliced transcripts could then evolve into predominant splice variants, or could specialize in tissue- or developmental-specific functions [63].  In contrast to the other two mechanisms of new gene formation -- DNA duplication and retrotransposition (discussed below), which do not change the existing gene complement upon new gene creation -- an atypical splice product may become a major splice isoform, replacing an existing predominant gene product, which may then become a minor isoform and be lost overtime."  -- Babushok et al Cell Mol LIfe Sci 2007
+
+"Segmental duplications constitute at least 5\% of human genome sequence [1,73], and are thought to arise in eukaryotes as frequently as 0.01 per gene per million years, with rates in individual species ranging 100-fold [83].  Typical segmental duplications copy regions are are of a few to 75 kb in length and often contain only partial gene structures insufficient for gene expression, producing dead gene copies, referred to as non-processed pseudogenes to distinguish them from processed pseudogenes created by L1 retrotransposition [72,84].... While segmental duplications typically lead to the formation of non-processed pseudogenes, they occasionally form gene copies that are expressed, functional, and innovative.  Over the course of evolution, the sheer volume of duplicative events caused great expansion of gene families and significantly enhanced genome complexity.  Particularly abundant are expansions of gene families involved in immunity and defense, membrane surface interaction, growth and development, and drug detoxification [73]"  -- Babushok et al Cell Mol Life Sci 2007
+
+"In addition to segmental duplications of whole gene structures, mammalian genomes contain over 4000 intronless copies of cellular genes, known as processed pseudogenes [87-91].  Processed pseudogenes are produced by the action of LINE-1 retrotransposon [92], which is known to occasionally reverse transcribe and integrate cellular transcripts at roughly random genomic sites [93,94].  Early mammalian and primate lineages experienced several bursts in L1 activity creating large populations of processed pseudogenes [89].  ... the resulting processed pesudogenes, unlike gene copies in segmental duplications, are intronless and lack the original prompt and regulatory sequences of template mRNA.  For this reason, processed pseudogenes have been classically thought to be transcriptionally dead on arrival...HOwever, more recent genome-wide surveys of EST databases as well as transcriptional analyses of individual pseudogenes have revealed that, in fact, up to a third of processed pseudogenes are transcribed, most of them specifically in the testes [90,95,97,99-104]. ... Frequent co-transcription and retrotransposition of 3' flanking DNA by L1 retrotransposons contributes to exon-shuffling by a similar mechanism, whereby L1 may transfer its downstream flanking region (genie or nonionic) next to an existing gene, where it may then develop into a new exon [115,116].  Notably, retrotransposition plays a key and unique role in increasing gene architectures by enabling transformation of low-abundance innovative transcripts into retrogenes that can be inherited, expressed, and can evolve independently from the original gene locus.  Indeed, genome-wide comparisons of processed pseudogenes with EST and cDNA databases represent unique ancestral splice variants, representing alternatively splice as well as TIC mRNAs that are rare or not found in current humans [117].  It is conceivable that even occasional transcripts formed by normally rare trans-splicing [118-120] or RNA-RNA recombination [121,122] between distinct genes may have been retrotransposed and contributed to domain shuffling and gene expansion over the course of eukaryotic evolution.  "  -- Babushok et al Cell Mol LIfe Sci 2007
+
+See Buckley et al J Exp Biol 2011 for refs for genomic tools applied in medicine, ecology, evolution, ecophysiology, and ecotxoicology
+
+"The main goal of the whole transcirptome analyses is to identify, characterize, and catalogue all the transcripts expressed within a specific cell/tissue -- at a particular stage -- with the great potential to determine the correct splicing patterns and the structure of genes, and to quantify the differential expression of transcripts in both physic- and pathological conditions [9]." -- Costa et al J Biomed Biotech 2010
+
+"RNA-Seq is perhaps one of the most complex next-generation applications.  Expression levels, differential splicing, allele-specific expression, RNA editing and fusion transcripts constitute important information when comparing samples for disease-related studies.  These attributes, not readily available by hybridization-based (microarrays) or tag sequence-based approaches, can now be far more easily and precisely obtained if sufficient sequence coverage is achieved....RNA-Seq on NGS platforms has clear advantages over the existing approaches [9,26].  First, unlike hybridization-based technologies, RNA-Seq is not limited to the detection of known transcripts, thus allowing the identification, characterization, and quantification of new splice isoforms.  In addition, it allows researchers to determine the correct annotation, also defining--at single nucleotide resolution--the transcriptional boundaries of genes and the expressed SNPs.  Other advantages of RNA-Seq compared to microarrays are the low background signal, the absence of an upper limit for quantification and consequently, the larger dynamic range of expression levels over which transcripts can be detected.  RNA-Seq data show high levels of reproducibility for both technical and biological replicates....Many research groups have been able to precisely quantify known transcripts, to discover new transcribed regions within intronic or intergenic regions, to characterize the antisense transcription, to identify alternative splicing with new combinations of known exon sequences or new transcribed eons, to evaluate the expression of repeat elements and to analyze a wide number of known and possible new candidate expressed SNPs, as well as to identify fusion transcripts and other new RNA categories." -- Costa et al J Biomed Biotech 2010
+
+See Costa et al J Biomed Biotech 2010 for detailed experimental procedures for RNA-Seq sample prep.
+
+"The alignment phase of reads from RNA-Seq experiments presents many other subtleties to be considered; standard mapping algorithms are not able to fully exploit the complexity of the transcriptome, requiring to be modified or adapted in order to account for splicing events in eucaryotes.  The easiest way to handle such difficulty is to map the reads directly on known transcribed sequences, with the obvious drawback of missing new transcripts.  Alternatively, the reads can be mapped continuously to the genome, but with the added opportunity of mapping reads that cross splice junctions."  -- Costa J Biomed Biotech 2010
+
+"At the end of the mapping algorithm one can distinguish between three types of reads: reads that map uniquely to the genome or to the splice junctions, reads with multiple locations either to the genome or to the splice junctions, and reads without a specific mapping location.  MMRs arise predominantly from conserved domains of paralogous gene families and from repeats.  The fraction of mappable reads that are MMRs depends on the length of the read, the genome under investigation, and the expression in the individual sample; however it is typically between 10-40\% for mammalian derived libraries [30,37].  Most of the studies [28,34] usually discarded MMRs from further analysis, limiting the attention only to UMRs.  Clearly, this omission introduces experimental bias, decreases the coverage and reduces the possibility of investigating expressed regions such as active retrotransposons and gene families.  An alternative strategy for the removal of the MMRs is to probabilistically assign them to each genomic location they map to.  The simplest assignment considers equal probabilities.  However, far better results have been obtained using a guilt-by-association strategy that calculates the probability of a MMRs originating from a particular loss.  In [82], the authors proposed to proportionally assign MMRs to each of their mapping locations based on unique coincidences with either UMRs and other MMRs.  Such as technique was later adopted in [79].  By contrast, in [83], the authors computed the probability as the ratio between the number of UMRs occurring in a nominal window surrounding each locus occupied by the considered MMR and the total number of UMRs proximal to all loci associated with that MMR.  Similar, in [37] the MMRs were fractionally assigned to their different possible locations considering the expression levels of heir respective gene models.  All these rescue strategies lead to substantially higher transcriptome coverage and give expression estimates in better agreement with microarrays than those using only UMRs [37,38]." -- Costa J Biomed Biotech 2010
+
+"The complexity of mammalian transcriptomes is also compounded by alternative splicing which allows one gene to produce multiple transcript isoforms.  Alternative splicing included events such as exon skipping, alternative 5' or 3' splicing, mutually exclusive eons, intron retention, and cryptic splice sites.  The frequency of occurrence of alternative splicing events is still underestimated.  However, it is well known that multiple transcript isoforms produced from a single gene can lead to protein isoforms with distinct functions, and that alternative splicing is widely involved in different physiological and pathological processes.  One of the most important advantages of RNA-Seq experiments is the possibility of understanding and comparing the transcriptome at the isoform level [95,96]." -- Costa J Biomed Biotech 2010
+
+"In principle, the quantification methods described above are equally applicable to quantify isoform expression.  In practice, however, it is difficult to compute isoform-specific expression because most reads that are mapped to the genes are shared by more than one isoform and then it becomes difficult to assign each read only to a specific isoform.  As a consequence, the assignment should rely on inferential methods to consider all data mapping to a certain region.  Several methods for inferring isoforms' abundance are based on the preliminary knowledge of precise isoforms' annotation, on the assumption of uniform distribution of the reads across the transcript, on Poisson model for the reads' counts and equal weight for each read, regardless the quality of the match.  The methods are often limited to handle only the cases where there is a relative small number of isoforms without confounding effects due to the overlap between genes.  In particular in [98], the authors showed that the complexity of some isoform sets may still render the estimation problem non identifiable based on current RNA-Seq protocols and derived a mathematical characterization of identifiable isoform set.  The main reason for such an effect is that current protocols with short single-end reads RNA-Seq are only able to assess local properties of a transcript.  It is possible that the combination of short-read data with longer reads or paired-end reads will be able to go further in addressing such challenges." -- Costa J Biomed Biotech 2010
+
+"Several other open-source analysis tools are continuously appearing.  Unfortunately, there is often an incomplete documentation and it is easy to spend more time in evaluating soft are suites than in analyzing the output data.  Whichever software is used, the most important question is to understand its limitations and assumptions."  -- Costa J Biomed Biotech 2010
+
+See intro of Garber 2011 NatMethods for refs for RNA-Seq to solve medical problems
+
+"Unspliced read aligners are ideal for mapping reads against a reference cDNA databases for quantification purposes [many citations].  If the exact reference transcriptome is available, Burrows-Wheeler methods are faster than seed-based methods (in our example, ~15x faster requiring ~110 CPU hours) and have small differences in alignment specificity (~10\% lower) see SI Table 1.  In contrast, when only the reference transcriptome of a distant species is available, seed methods can result in a large increase in sensitivity.  For example, using the rat transcriptome as a reference for mouse reads resulted in 40\% more reads aligned at a cost of ~7x more compute time, yielding a comparable alignment of success rate as when aligning to the actual reference mouse transcriptome."  -- Garber NatMethods 2011
+
+"Defining a precise map of all transcripts and isoforms that are expressed in a particular sample requires the assembly of these reads or read alignments into transcription units.  ... Transcriptome reconstruction is a difficult computational task for three main reasons.  First, gene expression spans several orders of magnitude, with some genes represented by only a few reads.  Second, reads originate from mature mRNA (exons only) as well as from the incompletely spliced precursor RNA (containing intronic sequences), making it difficult to identify the mature transcripts.  Third, reads are short, and genes can have many isoforms, making it challenging to determine which isoform produced each read.  Several methods exist to reconstruct the transcriptome, and they are genome-guided or genome-independent.  Genome-guided methods rely on a reference genome to first map all the reads to the genome and then assemble overlapping reads into transcripts.  By contrast, genome-independent methods assemble the reads directly into transcripts without using a reference genome." -- Garber Nat Methods 2011
+
+"Genome-independent transcriptome reconstruction algorithms such as transAbyss use the reads to directly build consensus transcripts.  Consensus transcripts can then be mapped to a genome or aligned to a gene or protein database for annotation purposes.  The central challenge for genome-independent approaches is to partition reads into disjoint components, which represent all isoforms of a gene.  ... de Bruijn graph...  Although genome-independent reconstruction is conceptually simple, there are two major complications: distinguishing sequencing errors from variation, and finding the optimal balance between sensitivity and and graph complexity.  Unlike the mapping-first strategy, sequencing errors introduce branch points in the graph that increase its complexity.  To eliminate these artifacts, genome-independent methods look at the coverage of different paths in the graph and apply a coverage cutoff to decide when to follow a path or when to remove it [53,59].  IN practice, the choose of the k-mer length for this analysis can greatly affect the assembly.  Smaller values of k result in a larger number of overlapping nodes and a more complex graph, whereas larger values of k reduce the number of overlaps and results in a simpler graph structure.  An optimal choice of k depends on coverage: when coverage is low, small values of k are preferable because they increase the number of overlapping reads contributing k-mers to the graph.  But when coverage is large, small values of k are overly sensitive to sequencing errors and other artifacts, yielding very complex graph structures[59].  To cope with the variability in transcript abundance intrinsic to expresson data, several methods, such as transABySS, use a variable k-mer strategy to gain power across expression levels to assemble transcripts [53,55], albeit at the expense of CPU power and requiring parallel execution."
+
+"As many genes have multiple isoforms, many of which share eons, and many genes families have close paralogs, some reads cannot be assigned unequivocaly to a transcript.  This read assignment uncertainty affects expression quantification accuracy.  One strategy, used in the alternative expression analysis by RNA sequencing method, is to estimate isoform-level expression values by counting only the reads that map uniquely to a single isoform.  Although this works for some alternatively spliced genes, it fails for genes that do not contain unique eons from which to estimate isoform expression.  Alternative methods termed isoform-expression methods such as Cufflinks and mixture of isoforms (MISO), handle uncertainty by constructing a likelihood function that models the sequencing process and identifies isoform abundance stimulates that best explain the reads obtained in the experiment.  This estimate, defined as the isoform abundance that maximizes the likelihood function, is termed the maximum likelihood estimate.  For genes expressed at low levels, the MLE is not an accurate expression estimate; Bayesian inference improves the robustness of expression quantification by sampling alternative abundance estimates around the MLE while also providing a confidence measure on the estimate.  We note that the number of potential isoforms greatly impacts the results, with incorrect or misassembled isoforms introducing uncertainty.  As such, when working with methods that produce the maximal isoform sets, it is necessary to pre filter transcripts before expression estimation for some genes.  This applies to both genome-guided as well as genome-independent algorithms."  -- Garber et al Nat Methods 2011
+
+"Often the objective is to estimate expression per gene rather than for each isoform or transcript.  A gene's expression is defined as the sum of the expression of all of its isoforms.  HOwever, calculating isoform abundance can be computationally challenging especially for complex loci.  Rather than computing isoform abundances, it is possible to define simplified schemes for quantifying gene expression.  The two most commonly used counting schemes are the exon intersection method, which counts reads mapped to its constitutive eons, and the exon union method, which counts all reads mapped to any exon in any of the gene's isoforms.  The exon intersection method is analogous to expression microarrays, which typically probe expression signal in constitutive regions of each gene.  Althouugh convenient, these simplified models come at a cost; the exon union model underestimates expression for alternatively spliced genes, and the intersection can reduce power for differential expression analysis, as discussed below."  -- Garber et al Nat Methods 2011
+
+
+
+% Results and Discussion can be combined.
+\section*{Results}
+
+\subsection*{Isoforms from real transcriptomes are the primary source of false positives}
+
+\subsection*{False positive rates from mapping increase as completeness of reference decreases}
+
+\subsection*{Choice of mapping programs has little effect on mapping accuracy}
+
+\subsection*{Transcript families are a means of grouping isoforms for further data analyses}
+
+\subsection*{Reads must be considerably longer to resolve the isoform problem}
+
+\subsection*{Current paired end read lengths are insufficient to resolve isoforms}
+
+\section*{Discussion}
+
+\subsection*{Random data is not a good substitute for real sequencing data}
+
+\subsection*{More sequencing data will not solve the isoform problem}
+
+\subsection*{Isoforms will most likely be resolved by additional experiment}
+
+\subsection*{New technology is needed to decrease false positive rates}
+
+\section*{Conclusion}
+%Final thoughts
+
+\section*{Materials and Methods}
+
+\subsection*{Simulation of random transcriptomes}
+
+\subsection*{Simulation of isoforms}
+
+\subsection*{Simulation of reads}
+
+\subsection*{Mapping}
+
+\subsection*{Read mapping accuracy}
+
+%Simulate test sets based on mouse and chicken from ensembl.  Homegrown code used to make the reads; available from github.  
+
+% Do NOT remove this, even if you are not including acknowledgments
+\section*{Acknowledgments}
+
+
+\section*{References}
+% The bibtex filename
+\bibliography{refs}
+
+\section*{Figure Legends}
+%\begin{figure}[!ht]
+%\begin{center}
+%%\includegraphics[width=4in]{figure_name.2.eps}
+%\end{center}
+%\caption{
+%{\bf Bold the first sentence.}  Rest of figure 2  caption.  Caption 
+%should be left justified, as specified by the options to the caption 
+%package.
+%}
+%\label{Figure_label}
+%\end{figure}
+
+
+\section*{Tables}
+
+\begin{table}[!ht]
+\caption{
+\bf{Effect of 1\% Substitution Error on Mapping of Simulated Reads to Random and Real Transcriptomes }}
+\begin{tabular}{|c|c|c||c|c||c|c||c|c||c|}
+\hline
+Organism & Num Trans & Error  & TP (d) & FP (d) & TP (u) & FP (u) & TP (m) & FP (m)\\
+\hline
+Random & 5000 & 1\% & 92\%& 0\%&92\%&0\%&92\%&0\%\\
+\hline
+Mouse & 5000 & 1\% & 87\%& 5\%&81\%&0\%&92\%&12\%\\
+\hline
+0\% Isoforms & 5000 & 1\% & 92\% & 0\% & 92\% & 0\% & 92\% & 0\%\\
+10\% Isoforms & 5000 & 1\% & 86\% & 6\% & 81\% & 0\% & 92\% & 14\%\\
+20\% Isoforms & 5000 & 1\% & 80\% & 12\% & 70\% & 0\% & 92\% & 33\%\\
+30\% Isoforms & 5000 & 1\% & 74\% & 18\% & 62\% & 0\% & 92\% & 60\%\\
+40\% Isoforms & 5000 & 1\% & 67\% & 25\% & 53\% & 0\% & 92\% & 105\%\\
+50\% Isoforms & 5000 & 1\% & 60\% & 32\% & 45\% & 0\% & 92\% & 217\%\\
+60\% Isoforms & 5000 & 1\% & 55\% & 37\% & 39\% & 0\% & 92\% & 303\%\\
+70\% Isoforms & 5000 & 1\% & 48\% & 45\% & 33\% & 0\% & 92\% & 732\%\\
+80\% Isoforms & 5000 & 1\% & 42\% & 50\% & 27\% & 0\% & 92\% & 970\%\\
+90\% Isoforms & 5000 & 1\% & 37\% & 56\% & 23\% & 0\% & 92\% & 4722\%\\
+\hline
+\end{tabular}
+\begin{flushleft}The random transcriptome shows the case where transcripts are all unique (no isoforms) and therefore in the absence of error, all reads will be mapped to their original transcripts.  Addition of a 1\% error will cause 8\% of the reads to be discarded because they cannot be mapped to any transcript using normal parameters.  However, in the mouse transcriptome that contains isoforms, 2\% of the reads will be mapped incorrectly even in the absence of sequencing error.  The 1000 transcripts were salected randomly.  (d), (u), and (m) are default, unique, and multimap, respectively, indicating which parameters were used for the mapping.  TP and FP are true positive and false positive as measured by a read being mapped to its original transcript or being mapped to a different transcript.
+\end{flushleft}
+\label{tab:validation}
+\end{table}
+
+\begin{table}[!ht]
+\caption{
+\bf{Comparison of False Positive Rates Between Model and Nonmodel Organisms with 20X coverage and 1\% substitution error}}
+\begin{tabular}{|c|c||c|c||c|c||c|c||c|c|}
+\hline
+Organism & Num Trans & TP (d) & FP (d) & TP (u) & FP (u) & TP (m) & FP (m)\\
+\hline
+\it{Homo sapiens} (Human) & 180223 & 38\%& 54\%& 21\% & 0\%&\%&\%\\
+\it{Mus musculus} (Mouse) & 88078 & 47\%& 45\%& 26\% & 0\%& 92\%& 233\%\\
+\it{Takifugu rubripes} (Pufferfish) & 47994 & 40\%& 52\%& 19\% & 0\%& 92\%& 267\%\\
+\it{Rattus norvegicus} (Rat) & 34721 &  62\%& 30\%& 41\% & 0\%& 92\%& 101\%\\
+\it{Caenorhabditis elegans} (Worm) & 31264 &  61\%& 31\%& 43\% & 0\%& 94\%&133\%\\
+\it{Ornithorhynchus anatinus} (Platypus) & 27380 & 62\%& 30\%& 37\% & 0\%&92\%&80\%\\
+\it{Canis familiaris} (Dog) & 27251 &  75\%& 17\%& 61\% & 0\%& 92\% & 55\%\\
+\it{Drosophila melanogaster} (Fruitfly) & 24612 & 46\%& 46\%& 28\% & 0\%& 95\%& 352\%\\
+\it{Xenopus tropicalus} (Frog) & 22878 &  76\%& 16\%& 61\% & 0\%& 93\%& 71\%\\
+\it{Sarcophilus harrisii} (Tasmanian devil) & 22582 & 76\%& 16\%& 61\% & 0\%& 92\%& 34\%\\
+\it{Gallus gallus} (Chicken) & 22215 & 72\%& 20\%& 56\% & 0\%& 92\%& 68\%\\
+\it{Ailuropodo melanoleuca} (Panda) & 21891 &  84\%& 8\%& 76\% & 0\%& 92\%& 18\%\\
+\it{Taeniopygia guttata} (Zebra Finch) & 18560 & 86\%& 6\%& 79\% & 0\%& 93\%& 70\%\\
+\it{Tursiops truncatus} (Dolphin) & 17523 &  83\%& 1\%& 83\% & 0\%& 84\%& 10\%\\
+\it{Choloepus hoffmanni} (Sloth) & 14039 &  67\%& 1\%& 66\% & 0\%& 68\%& 3\%\\
+\it{Petromyzon marinus} (Lamprey) & 11338 &  84\%& 8\%& 77\% & 0\%&94\%&23\%\\
+\it{Saccharomyces cerevisae} (Yeast) & 6757 & 87\%& 6\%& 84\% & 0\%& 92\%& 86\%\\
+
+\hline
+\end{tabular}
+\begin{flushleft}\end{flushleft}
+\label{tab:compModelNonmodelSpecies}
+\end{table}
+
+
+\begin{table}[!ht]
+\caption{
+\bf{Comparison of Accuracy}}
+\begin{tabular}{|c|c|c||c|c||c|c||c|c||c|c||c|}
+\hline
+Organism & Num Trans Ref & Error & TPs (d) & FPs (d) & TPs (u) & FPs (u) & TP (m) & FP (m)\\
+\hline
+Mouse & 88366 & 1\% & 47\%&45\%& 27\%&0\%&92\%&235\%\\
+Mouse & 90\% & 1\% & 44\%&45\%& 26\%&2\%&83\%&212\%\\
+Mouse & 80\% & 1\% & 43\%&44\%& 25\%&4\%&74\%&187\%\\
+Mouse & 70\% & 1\% & 38\%&44\%& 24\%&7\%&65\%&165\%\\
+Mouse & 60\% & 1\% & 34\%&43\%& 22\%&9\%&55\%&140\%\\
+Mouse & 50\% & 1\% & 30\%&41\%& 21\%&11\%&46\%&118\%\\
+Mouse & 40\% & 1\% & 26\%&38\%& 19\%&14\%&37\%&94\%\\
+Mouse & 30\% & 1\% & 21\%&33\%& 16\%&16\%&28\%&69\%\\
+Mouse & 20\% & 1\% & 15\%&28\%& 13\%&16\%&19\%&48\%\\
+Mouse & 10\% & 1\% &   8\%&16\%&   8\%&13\%&  9\%&23\%\\
+\hline
+Chicken & 22290 & 1\% & 72\%&20\%& 56\%&0\%&92\%&69\%\\
+Chicken & 90\% & 1\% & 66\%&20\%& 53\%&2\%&83\%&62\%\\
+Chicken & 80\% & 1\% & 60\%&19\%& 49\%&4\%&74\%&55\%\\
+Chicken & 70\% & 1\% & 54\%&18\%& 45\%&6\%&65\%&48\%\\
+Chicken & 60\% & 1\% & 48\%&18\%& 41\%&8\%&56\%&40\%\\
+Chicken & 50\% & 1\% & 41\%&16\%& 36\%&9\%&46\%&34\%\\
+Chicken & 40\% & 1\% & 33\%&14\%& 29\%&9\%&36\%&27\%\\
+Chicken & 30\% & 1\% & 25\%&12\%& 23\%&8\%&27\%&21\%\\
+Chicken & 20\% & 1\% & 18\%& 9\%& 17\%& 7\%&19\%&14\%\\
+Chicken & 10\% & 1\% & 9\%&   5\%&    9\%& 4\%& 9\%&  7\%\\
+\hline
+\end{tabular}
+\begin{flushleft} List of test cases and mapping accuracy.  Num Transcripts Ref  indicate the number of transcripts in the reference (reads were simulated for the complete reference) respectively.  Error indicates the percent random substitution error in the reads. TP is the true positive or percentage of reads that were mapped to their original transcript.  FPs indicates the false positives or reads that are reported to align but are mapped to the wrong transcript. (d), (u), and (m) are the default, unique, and multi map parameters used.  Each simulation at the 50\% transcriptome expression level was run in triplicate with the results averaged.
+\end{flushleft}
+\label{tab:accuracy}
+\end{table}
+
+\begin{table}[!ht]
+\caption{
+\bf{Comparison of Three Common Mapping Programs on the Same Chicken Data Set }}
+\begin{tabular}{|c|c|c||c|c||c|c||c|c||c|}
+\hline
+Organism & Num Trans & Error  & Bowtie TP (d) & FP (d) & BWA TP (d) & FP (d) & SOAP2 TP (d) & FP (d)\\
+\hline
+Chicken & 100\% & 1\% & 72\%& 20\%&72\%&20\%&78\%&22\%\\
+Chicken & 90\% & 1\% & 66\%& 20\%&66\%&20\%&72\%&22\%\\
+Chicken & 80\% & 1\% & 60\%& 20\%&60\%&19\%&79\%&19\%\\
+Chicken & 70\% & 1\% & 54\%& 19\%&54\%&19\%&58\%&21\%\\
+Chicken & 60\% & 1\% & 47\%& 18\%&48\%&18\%&51\%&20\%\\
+Chicken & 50\% & 1\% & 41\%& 16\%&41\%&16\%&44\%&18\%\\
+\hline
+\end{tabular}
+\begin{flushleft} Comparison of Bowtie, BWA, and SOAP2 mapping programs on the same simulated reads for the chicken data set with decreasing completeness of the reference transcriptome.
+\end{flushleft}
+\label{tab:mapperComp}
+\end{table}
+
+\begin{table}[!ht]
+\caption{
+\bf{Transcript Families }}
+\begin{tabular}{|c|c|c||c|c||c|c||c|c||c|}
+\hline
+\hline
+\hline
+\end{tabular}
+\begin{flushleft} 
+\end{flushleft}
+\label{tab:transcriptFamilies}
+\end{table}
+
+\begin{table}[!ht]
+\caption{
+\bf{Comparison of Effects of Longer Reads on Mapping to Complete Mouse Transcriptome with 20X coverage and 0\% error}}
+\begin{tabular}{|c||c|c||c|c||c|c||c|c||}
+\hline
+Read Length (bp)& TPs (d) & FPs (d) & TPs (u) & FPs (u) & TP (m) & FP (m)\\
+\hline
+100 & 51\%&49\%& 28\%& 0\%& 100\%& 265\%\\
+200 & 55\%&45\%& 32\%& 0\%& 100\%& 223\%\\
+300 & 58\%&42\%& 36\%& 0\%& 100\%& 193\%\\
+400 & 60\%&40\%& 39\%& 0\%& 100\%& 174\%\\
+500 & 63\%&37\%& 42\%& 0\%& 100\%& 158\%\\
+600 & 65\%&35\%& 45\%& 0\%& 100\%& 146\%\\
+700 & 66\%&34\%& 47\%& 0\%& 100\%& 136\%\\
+800 & 68\%&32\%& 49\%& 0\%& 100\%& 128\%\\
+900 & 69\%&31\%& 51\%& 0\%& 100\%& 121\%\\
+1000 & 70\%&30\%& 53\%& 0\%& 100\%& 114\%\\
+\hline
+\end{tabular}
+\begin{flushleft} 
+\end{flushleft}
+\label{tab:longReads}
+\end{table}
+
+
+\end{document}
+

@@ -1,0 +1,308 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Martin2011}
+Martin JA, Wang Z (2011) {{N}ext-generation transcriptome assembly}.
+\newblock Nat Rev Genet 12: 671--682.
+\bibAnnoteFile{Martin2011}
+
+\bibitem{Twine2011}
+Twine NA, Janitz K, Wilkins MR, Janitz M (2011) {{W}hole transcriptome
+  sequencing reveals gene expression and splicing differences in brain regions
+  affected by {A}lzheimer's disease}.
+\newblock PLoS ONE 6: e16266.
+\bibAnnoteFile{Twine2011}
+
+\bibitem{Kai2011}
+Kai W, Kikuchi K, Tohari S, Chew AK, Tay A, et~al. (2011) {{I}ntegration of the
+  genetic map and genome assembly of fugu facilitates insights into distinct
+  features of genome evolution in teleosts and mammals}.
+\newblock Genome Biol Evol 3: 424--442.
+\bibAnnoteFile{Kai2011}
+
+\bibitem{Ye2011}
+Ye L, Hillier LW, Minx P, Thane N, Locke DP, et~al. (2011) {{A} vertebrate case
+  study of the quality of assemblies derived from next-generation sequences}.
+\newblock Genome Biol 12: R31.
+\bibAnnoteFile{Ye2011}
+
+\bibitem{Wang2008}
+Wang ET, Sandberg R, Luo S, Khrebtukova I, Zhang L, et~al. (2008)
+  {{A}lternative isoform regulation in human tissue transcriptomes}.
+\newblock Nature 456: 470--476.
+\bibAnnoteFile{Wang2008}
+
+\bibitem{Cloonan2008}
+Cloonan N, Forrest AR, Kolle G, Gardiner BB, Faulkner GJ, et~al. (2008) {{S}tem
+  cell transcriptome profiling via massive-scale m{R}{N}{A} sequencing}.
+\newblock Nat Methods 5: 613--619.
+\bibAnnoteFile{Cloonan2008}
+
+\bibitem{Denoeud2008}
+Denoeud F, Aury JM, Da~Silva C, Noel B, Rogier O, et~al. (2008) {{A}nnotating
+  genomes with massive-scale {R}{N}{A} sequencing}.
+\newblock Genome Biol 9: R175.
+\bibAnnoteFile{Denoeud2008}
+
+\bibitem{Lister2008}
+Lister R, O'Malley RC, Tonti-Filippini J, Gregory BD, Berry CC, et~al. (2008)
+  {{H}ighly integrated single-base resolution maps of the epigenome in
+  {A}rabidopsis}.
+\newblock Cell 133: 523--536.
+\bibAnnoteFile{Lister2008}
+
+\bibitem{Maher2009}
+Maher CA, Kumar-Sinha C, Cao X, Kalyana-Sundaram S, Han B, et~al. (2009)
+  {{T}ranscriptome sequencing to detect gene fusions in cancer}.
+\newblock Nature 458: 97--101.
+\bibAnnoteFile{Maher2009}
+
+\bibitem{Marioni2008}
+Marioni JC, Mason CE, Mane SM, Stephens M, Gilad Y (2008) {{R}{N}{A}-seq: an
+  assessment of technical reproducibility and comparison with gene expression
+  arrays}.
+\newblock Genome Res 18: 1509--1517.
+\bibAnnoteFile{Marioni2008}
+
+\bibitem{Mortazavi2008}
+Mortazavi A, Williams BA, McCue K, Schaeffer L, Wold B (2008) {{M}apping and
+  quantifying mammalian transcriptomes by {R}{N}{A}-{S}eq}.
+\newblock Nat Methods 5: 621--628.
+\bibAnnoteFile{Mortazavi2008}
+
+\bibitem{Nagalakshmi2008}
+Nagalakshmi U, Wang Z, Waern K, Shou C, Raha D, et~al. (2008) {{T}he
+  transcriptional landscape of the yeast genome defined by {R}{N}{A}
+  sequencing}.
+\newblock Science 320: 1344--1349.
+\bibAnnoteFile{Nagalakshmi2008}
+
+\bibitem{Sultan2008}
+Sultan M, Schulz MH, Richard H, Magen A, Klingenhoff A, et~al. (2008) {{A}
+  global view of gene activity and alternative splicing by deep sequencing of
+  the human transcriptome}.
+\newblock Science 321: 956--960.
+\bibAnnoteFile{Sultan2008}
+
+\bibitem{Yassour2009}
+Yassour M, Kaplan T, Fraser HB, Levin JZ, Pfiffner J, et~al. (2009) {{A}b
+  initio construction of a eukaryotic transcriptome by massively parallel
+  m{R}{N}{A} sequencing}.
+\newblock Proc Natl Acad Sci USA 106: 3264--3269.
+\bibAnnoteFile{Yassour2009}
+
+\bibitem{Trapnell2010}
+Trapnell C, Williams BA, Pertea G, Mortazavi A, Kwan G, et~al. (2010)
+  {{T}ranscript assembly and quantification by {R}{N}{A}-{S}eq reveals
+  unannotated transcripts and isoform switching during cell differentiation}.
+\newblock Nat Biotechnol 28: 511--515.
+\bibAnnoteFile{Trapnell2010}
+
+\bibitem{Schulz2012}
+Schulz MH, Zerbino DR, Vingron M, Birney E (2012) {{O}ases: robust de novo
+  {R}{N}{A}-seq assembly across the dynamic range of expression levels}.
+\newblock Bioinformatics 28: 1086--1092.
+\bibAnnoteFile{Schulz2012}
+
+\bibitem{Grabherr2011}
+Grabherr MG, Haas BJ, Yassour M, Levin JZ, Thompson DA, et~al. (2011)
+  {{F}ull-length transcriptome assembly from {R}{N}{A}-{S}eq data without a
+  reference genome}.
+\newblock Nat Biotechnol 29: 644--652.
+\bibAnnoteFile{Grabherr2011}
+
+\bibitem{Oshlack2010}
+Oshlack A, Robinson MD, Young MD (2010) {{F}rom {R}{N}{A}-seq reads to
+  differential expression results}.
+\newblock Genome Biol 11: 220.
+\bibAnnoteFile{Oshlack2010}
+
+\bibitem{SurgetGroba2010}
+Surget-Groba Y, Montoya-Burgos JI (2010) {{O}ptimization of de novo
+  transcriptome assembly from next-generation sequencing data}.
+\newblock Genome Res 20: 1432--1440.
+\bibAnnoteFile{SurgetGroba2010}
+
+\bibitem{DeBruijn1946}
+De~Bruijn N (1946) {{A} combinatorial problem}.
+\newblock Koninklijke Nederlandse Akademie v Wetenschappen 46: 6.
+\bibAnnoteFile{DeBruijn1946}
+
+\bibitem{Pevzner1989}
+Pevzner PA (1989) {1-{T}uple {D}{N}{A} sequencing: computer analysis}.
+\newblock J Biomol Struct Dyn 7: 63--73.
+\bibAnnoteFile{Pevzner1989}
+
+\bibitem{Zerbino2008}
+Zerbino DR, Birney E (2008) {{V}elvet: algorithms for de novo short read
+  assembly using de {B}ruijn graphs}.
+\newblock Genome Res 18: 821--829.
+\bibAnnoteFile{Zerbino2008}
+
+\bibitem{Robertson2010}
+Robertson G, Schein J, Chiu R, Corbett R, Field M, et~al. (2010) {{D}e novo
+  assembly and analysis of {R}{N}{A}-seq data}.
+\newblock Nat Methods 7: 909--912.
+\bibAnnoteFile{Robertson2010}
+
+\bibitem{Zerbino2010}
+Zerbino DR (2010) {{U}sing the {V}elvet de novo assembler for short-read
+  sequencing technologies}.
+\newblock Curr Protoc Bioinformatics Chapter 11: Unit 11.5.
+\bibAnnoteFile{Zerbino2010}
+
+\bibitem{Lander2001}
+Lander ES (2011) {{I}nitial impact of the sequencing of the human genome}.
+\newblock Nature 470: 187--197.
+\bibAnnoteFile{Lander2001}
+
+\bibitem{Modrek2001}
+Modrek B, Resch A, Grasso C, Lee C (2001) {{G}enome-wide detection of
+  alternative splicing in expressed sequences of human genes}.
+\newblock Nucleic Acids Res 29: 2850--2859.
+\bibAnnoteFile{Modrek2001}
+
+\bibitem{Johnson2003}
+Johnson JM, Castle J, Garrett-Engele P, Kan Z, Loerch PM, et~al. (2003)
+  {{G}enome-wide survey of human alternative pre-m{R}{N}{A} splicing with exon
+  junction microarrays}.
+\newblock Science 302: 2141--2144.
+\bibAnnoteFile{Johnson2003}
+
+\bibitem{Costa2010}
+Costa V, Angelini C, De~Feis I, Ciccodicola A (2010) {{U}ncovering the
+  complexity of transcriptomes with {R}{N}{A}-{S}eq}.
+\newblock J Biomed Biotechnol 2010: 853916.
+\bibAnnoteFile{Costa2010}
+
+\bibitem{Stein2011}
+Stein LD (2011) {{A}n introduction to the informatics of "next-generation"
+  sequencing}.
+\newblock Curr Protoc Bioinformatics Chapter 11: Unit 11.1.
+\bibAnnoteFile{Stein2011}
+
+\bibitem{Cloonan2009}
+Cloonan N, Xu Q, Faulkner GJ, Taylor DF, Tang DT, et~al. (2009)
+  {{R}{N}{A}-{M}{A}{T}{E}: a recursive mapping strategy for high-throughput
+  {R}{N}{A}-sequencing data}.
+\newblock Bioinformatics 25: 2615--2616.
+\bibAnnoteFile{Cloonan2009}
+
+\bibitem{Hashimoto2009}
+Hashimoto T, de~Hoon MJ, Grimmond SM, Daub CO, Hayashizaki Y, et~al. (2009)
+  {{P}robabilistic resolution of multi-mapping reads in massively parallel
+  sequencing data using {M}u{M}{R}escue{L}ite}.
+\newblock Bioinformatics 25: 2613--2614.
+\bibAnnoteFile{Hashimoto2009}
+
+\bibitem{Jiang2009}
+Jiang H, Wong WH (2009) {{S}tatistical inferences for isoform expression in
+  {R}{N}{A}-{S}eq}.
+\newblock Bioinformatics 25: 1026--1032.
+\bibAnnoteFile{Jiang2009}
+
+\bibitem{Li2010}
+Li B, Ruotti V, Stewart RM, Thomson JA, Dewey CN (2010) {{R}{N}{A}-{S}eq gene
+  expression estimation with read mapping uncertainty}.
+\newblock Bioinformatics 26: 493--500.
+\bibAnnoteFile{Li2010}
+
+\bibitem{Li2011}
+Li B, Dewey CN (2011) {{R}{S}{E}{M}: accurate transcript quantification from
+  {R}{N}{A}-{S}eq data with or without a reference genome}.
+\newblock BMC Bioinformatics 12: 323.
+\bibAnnoteFile{Li2011}
+
+\bibitem{Kim2011}
+Kim H, Bi Y, Pal S, Gupta R, Davuluri RV (2011) {{I}soform{E}x: isoform level
+  gene expression estimation using weighted non-negative least squares from
+  m{R}{N}{A}-{S}eq data}.
+\newblock BMC Bioinformatics 12: 305.
+\bibAnnoteFile{Kim2011}
+
+\bibitem{Richard2010}
+Richard H, Schulz MH, Sultan M, Nurnberger A, Schrinner S, et~al. (2010)
+  {{P}rediction of alternative isoforms from exon expression levels in
+  {R}{N}{A}-{S}eq experiments}.
+\newblock Nucleic Acids Res 38: e112.
+\bibAnnoteFile{Richard2010}
+
+\bibitem{Lacroix2008}
+Lacroix V (2008) {E}sact transcriptome reconstruction from short sequence
+  reads, Springer.
+\newblock {W}{A}{B}08: Proceedings of the 8th international workshop on
+  {A}lgorithms in {B}informatics edition, pp. 500--563.
+\bibAnnoteFile{Lacroix2008}
+
+\bibitem{Xia2011}
+Xia Z, Wen J, Chang CC, Zhou X (2011) {{N}{S}{M}{A}{P}: a method for spliced
+  isoforms identification and quantification from {R}{N}{A}-{S}eq}.
+\newblock BMC Bioinformatics 12: 162.
+\bibAnnoteFile{Xia2011}
+
+\bibitem{Langmead2009}
+Langmead B, Trapnell C, Pop M, Salzberg SL (2009) {{U}ltrafast and
+  memory-efficient alignment of short {D}{N}{A} sequences to the human genome}.
+\newblock Genome Biol 10: R25.
+\bibAnnoteFile{Langmead2009}
+
+\bibitem{Li2009bwa}
+Li H, Durbin R (2009) {{F}ast and accurate short read alignment with
+  {B}urrows-{W}heeler transform}.
+\newblock Bioinformatics 25: 1754--1760.
+\bibAnnoteFile{Li2009bwa}
+
+\bibitem{Li2009soap2}
+Li R, Yu C, Li Y, Lam TW, Yiu SM, et~al. (2009) {{S}{O}{A}{P}2: an improved
+  ultrafast tool for short read alignment}.
+\newblock Bioinformatics 25: 1966--1967.
+\bibAnnoteFile{Li2009soap2}
+
+\bibitem{Toung2011}
+Toung JM, Morley M, Li M, Cheung VG (2011) {{R}{N}{A}-sequence analysis of
+  human {B}-cells}.
+\newblock Genome Res 21: 991--998.
+\bibAnnoteFile{Toung2011}
+
+\bibitem{Pickrell2010}
+Pickrell JK, Pai AA, Gilad Y, Pritchard JK (2010) {{N}oisy splicing drives
+  m{R}{N}{A} isoform diversity in human cells}.
+\newblock PLoS Genet 6: e1001236.
+\bibAnnoteFile{Pickrell2010}
+
+\bibitem{Li2011isolasso}
+Li W, Feng J, Jiang T (2011) {{I}so{L}asso: a {L}{A}{S}{S}{O} regression
+  approach to {R}{N}{A}-{S}eq based transcriptome assembly}.
+\newblock J Comput Biol 18: 1693--1707.
+\bibAnnoteFile{Li2011isolasso}
+
+\bibitem{Nguyen2012}
+Nguyen T, Deng N, Zhu D {{S}{A}{S}eq: {A} selective and adaptive shrinkage
+  approach to detect and quantify active transcripts using {R}{N}{A}-{S}eq}.
+\newblock Submitted.
+\bibAnnoteFile{Nguyen2012}
+
+\bibitem{Flicek2012}
+Flicek P, Amode MR, Barrell D, Beal K, Brent S, et~al. (2012) {{E}nsembl 2012}.
+\newblock Nucleic Acids Res 40: 84--90.
+\bibAnnoteFile{Flicek2012}
+
+\bibitem{Garber2011}
+Garber M, Grabherr MG, Guttman M, Trapnell C (2011) {{C}omputational methods
+  for transcriptome annotation and quantification using {R}{N}{A}-seq}.
+\newblock Nat Methods 8: 469--477.
+\bibAnnoteFile{Garber2011}
+
+\end{thebibliography}
