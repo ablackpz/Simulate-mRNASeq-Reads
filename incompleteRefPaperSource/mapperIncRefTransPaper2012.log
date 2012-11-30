@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  30 NOV 2012 13:44
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  30 NOV 2012 15:30
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -278,28 +278,28 @@ File: 20121023_mappingErrorsMaster.pdf Graphic file (type pdf)
 
 <use 20121023_mappingErrorsMaster.pdf>
 Package pdftex.def Info: 20121023_mappingErrorsMaster.pdf used on input line 48
-2.
+6.
 (pdftex.def)             Requested size: 433.62pt x 561.15749pt.
 
 
-LaTeX Warning: Float too large for page by 19.64961pt on input line 488.
+LaTeX Warning: Float too large for page by 115.64961pt on input line 497.
 
 <20121023_incRefGraphs.pdf, id=40, 614.295pt x 794.97pt>
 File: 20121023_incRefGraphs.pdf Graphic file (type pdf)
 
 <use 20121023_incRefGraphs.pdf>
-Package pdftex.def Info: 20121023_incRefGraphs.pdf used on input line 493.
+Package pdftex.def Info: 20121023_incRefGraphs.pdf used on input line 502.
 (pdftex.def)             Requested size: 433.62pt x 561.15749pt.
 
 
-LaTeX Warning: Float too large for page by 19.64961pt on input line 499.
+LaTeX Warning: Float too large for page by 31.64961pt on input line 510.
 
 <20121023_transcriptExpression.pdf, id=41, 614.295pt x 296.10625pt>
 File: 20121023_transcriptExpression.pdf Graphic file (type pdf)
 
 <use 20121023_transcriptExpression.pdf>
 Package pdftex.def Info: 20121023_transcriptExpression.pdf used on input line 5
-04.
+15.
 (pdftex.def)             Requested size: 433.62pt x 209.01698pt.
 
 <20121023_geneTranscriptFamExpression.pdf, id=42, 614.295pt x 294.22823pt>
@@ -307,14 +307,14 @@ File: 20121023_geneTranscriptFamExpression.pdf Graphic file (type pdf)
 
 <use 20121023_geneTranscriptFamExpression.pdf>
 Package pdftex.def Info: 20121023_geneTranscriptFamExpression.pdf used on input
- line 515.
+ line 528.
 (pdftex.def)             Requested size: 433.62pt x 207.69131pt.
 
 <20121024_longReadsMouse.pdf, id=43, 614.295pt x 406.51875pt>
 File: 20121024_longReadsMouse.pdf Graphic file (type pdf)
 
 <use 20121024_longReadsMouse.pdf>
-Package pdftex.def Info: 20121024_longReadsMouse.pdf used on input line 526.
+Package pdftex.def Info: 20121024_longReadsMouse.pdf used on input line 539.
 (pdftex.def)             Requested size: 433.62pt x 286.95552pt.
 
 <20121011_multimapReadsLongExample.pdf, id=44, 614.295pt x 332.91074pt>
@@ -322,18 +322,18 @@ File: 20121011_multimapReadsLongExample.pdf Graphic file (type pdf)
 
 <use 20121011_multimapReadsLongExample.pdf>
 Package pdftex.def Info: 20121011_multimapReadsLongExample.pdf used on input li
-ne 537.
+ne 550.
 (pdftex.def)             Requested size: 433.62pt x 234.99672pt.
 
 <20120820_longPairedEndComp.pdf, id=45, 614.295pt x 403.5075pt>
 File: 20120820_longPairedEndComp.pdf Graphic file (type pdf)
 
 <use 20120820_longPairedEndComp.pdf>
-Package pdftex.def Info: 20120820_longPairedEndComp.pdf used on input line 548.
+Package pdftex.def Info: 20120820_longPairedEndComp.pdf used on input line 561.
 
 (pdftex.def)             Requested size: 433.62pt x 284.82993pt.
 
-Overfull \hbox (18.92336pt too wide) in paragraph at lines 619--635
+Overfull \hbox (18.92336pt too wide) in paragraph at lines 633--649
 [][] 
  []
 
@@ -345,11 +345,11 @@ eadsLongExample.pdf>] [17 <./20120820_longPairedEndComp.pdf>]
 Here is how much of TeX's memory you used:
  3551 strings out of 493633
  52255 string characters out of 3143378
- 133896 words of memory out of 3000000
+ 135896 words of memory out of 3000000
  6761 multiletter control sequences out of 15000+200000
  7556 words of font info for 29 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 38i,8n,38p,370b,289s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,8n,38p,1024b,289s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2011/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2011/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2011/texmf-dist/fonts/typ
@@ -359,7 +359,7 @@ ublic/amsfonts/cm/cmr7.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmti10.pfb>
-Output written on mapperIncRefTransPaper2012.pdf (17 pages, 3033277 bytes).
+Output written on mapperIncRefTransPaper2012.pdf (17 pages, 3034792 bytes).
 PDF statistics:
  2039 PDF objects out of 2073 (max. 8388607)
  816 compressed objects within 9 object streams

@@ -194,8 +194,8 @@ for higher accuracy.
 \subsection*{Read Simulations}
 
 To evaluate the accuracy of mapping, read sets were simulated where each read was annotated 
-with its originating transcript.  The transcriptomes used were either chicken (22290 transcripts), 
-mouse (88366 transcripts), or randomly generated (see Methods).  
+with its originating transcript.  The transcriptomes used were either chicken, 
+mouse, or randomly generated (see Methods).  
 To simulate Illumina reads, single end reads were 100 bp and 
 paired end reads were 100 bp with 50 bp insert size.  An error rate of 1\% was simulated by 
 applying a random substitution error to the simulated reads.  Reads were generated from 
@@ -233,11 +233,15 @@ the false positive rate due to multimap reads is expected to be compounded.
 \subsection*{Comparison of incomplete reference mapping results between model and nonmodel organisms}
 
 To characterize the effects of an incomplete reference transcriptome on mapping accuracy, 
-we next generated simulated read sets of \emph{Mus musculus}, which has a well-studied transcriptome, 
-and \emph{Gallus gallus}, for which the reference genome and transcriptome are known to be 
-incomplete. 50\% of the 
+we next generated simulated read sets for \emph{Mus musculus}, which has a well-studied transcriptome
+(23,153 genes and 90,956 transcripts in release 68 as of November 2012\cite{Flicek2012}), 
+and \emph{Gallus gallus}, for which the reference genome is predicted to be 95\% complete 
+and transcriptome is 
+incomplete (16,736 genes and 23.392 transcripts in 2.1 release as of November 2012) 
+with sequence missing for several microchromosomes\cite{Ye2011}. 50\% of the 
 transcripts were randomly selected for expression across several orders of magnitude (10, 100, 1000) 
-to model real \rnaseq{} expression levels.  As seen in Figure 2 (top left), when 10\% increments of 
+to model real \rnaseq{} expression levels (triplicate runs with results averaged).  
+As seen in Figure 2 (top left), when 10\% increments of 
 the chicken reference transcriptome are missing, the true positive rate decreases by approximately 
 6-8\%, while the false positive rate remains relatively constant until the reference is more than 50\% 
 incomplete.  This is due to reads being mismapped to alternative splice variants (as demonstrated 
@@ -482,7 +486,12 @@ was determined as above.
 \includegraphics[width=6in]{20121023_mappingErrorsMaster.pdf}
 \end{center}
 \caption{
-{\bf Read mapping errors when using different parameters.  Colors indicate different exons; transparent transcripts are missing from the reference; and black outlines indicate reads that are erroneously mapped.
+{\bf Read mapping errors when using different parameters.  Large colored rectangles indicate different exons; transparent transcripts are missing from the reference; and black outlines indicate reads that are erroneously mapped.  In the Actual Read Alignment, reads are shown mapped to their 
+correct transcript.  In Read Mapping with Default Parameter, the same reads are shown but the multimap reads can be mapped to the wrong 
+transcript.  Multimap reads originating from Transcript 4 are all mapped to Transcript 3 when Transcript 4 is missing from the reference transcriptome.  
+In Read Mapping with Unique Parameter, the multimap reads for Transcripts 1 and 2 are removed from the analysis, thereby preventing erroneous 
+mapping, but the multimap reads for Transcripts 3 and 4 are not removed because they are not known to be multimapping when Transcript 4 
+missing from the reference. 
 }}
 \label{fig:masterMap}
 \end{figure}
@@ -493,7 +502,9 @@ was determined as above.
 \includegraphics[width=6in]{20121023_incRefGraphs.pdf}
 \end{center}
 \caption{
-{\bf Per-read errors for single end reads from real transcriptomes with 10\% increments of the reference transcriptome eliminated.  Note difference in y-axis for third row.
+{\bf Read mapping errors for single end reads from real transcriptomes with 10\% increments of the reference transcriptome eliminated.  
+Blue bars indicate true positives and red bars are false positives.  Note difference in y-axis for third row due to high false positive 
+when multimapping (reads with many equivalent mapping locations).
 }}
 \label{fig:incRefComposite}
 \end{figure}
@@ -504,7 +515,9 @@ was determined as above.
 \includegraphics[width=6in]{20121023_transcriptExpression.pdf}
 \end{center}
 \caption{
-{\bf Per-transcript errors for chicken transcriptome with differing levels of transcriptome expression and increasingly incomplete reference.
+{\bf Transcript level errors for chicken transcriptome with differing levels of transcriptome expression and increasingly incomplete reference.  
+Percentages indicate the amount of the transcriptome expressed (i.e. 25\% expressed indicates that 25\% of the transcripts in the chicken 
+transcriptome have nonzero expression).    
 }}
 \label{fig:transcriptExp}
 \end{figure}
@@ -515,7 +528,7 @@ was determined as above.
 \includegraphics[width=6in]{20121023_geneTranscriptFamExpression.pdf}
 \end{center}
 \caption{
-{\bf Per-gene and per-transcript family errors for chicken transcriptome with differing levels of transcriptome expression and increasingly incomplete reference transcriptome (single end reads).
+{\bf Gene and transcript family level errors for chicken transcriptome with differing levels of transcriptome expression and increasingly incomplete reference transcriptome (single end reads).
 }}
 \label{fig:geneExp}
 \end{figure}
@@ -526,7 +539,7 @@ was determined as above.
 \includegraphics[width=6in]{20121024_longReadsMouse.pdf}
 \end{center}
 \caption{
-{\bf Read mapping errors for single end reads from 20x coverage mouse transcriptome (no substitution errors).
+{\bf Read mapping errors for single end reads from 20x coverage mouse transcriptome (no substitution errors) with increasing read length.
 }}
 \label{fig:longSeReads}
 \end{figure}
@@ -548,7 +561,8 @@ was determined as above.
 \includegraphics[width=6in]{20120820_longPairedEndComp.pdf}
 \end{center}
 \caption{
-{\bf Comparison of read mapping errors for paired end reads from 20x coverage mouse transcriptome (no substitution error).
+{\bf Comparison of read mapping errors for paired end reads from 20x coverage mouse transcriptome (no substitution error) with default parameter.  
+Left, read lengths remain 100 bp for increasing fragment lengths.  Right, read lengths increase for 1 kb fragments.
 }}
 \label{fig:longPeReads}
 \end{figure}
@@ -632,7 +646,7 @@ Chicken & 20\% & 19\%& 11\%&19\%&11\%&19\%&11\%\\
 Chicken & 10\% & 9\%& 5\%&9\%&6\%&9\%&5\%\\
 \hline
 \end{tabular}
-\begin{flushleft} Comparison of Bowtie, BWA, and SOAP2 mapping programs on the same simulated reads for error-free chicken read sets (triplicate and averaged) with decreasing completeness of the reference transcriptome.
+\begin{flushleft} Comparison of Bowtie, BWA, and SOAP2 mapping programs on the same simulated reads for error-free chicken read sets (triplicate and averaged) with decreasing completeness of the reference transcriptome, showing equivalent results.
 \end{flushleft}
 \label{tab:mapperComp}
 \end{table}

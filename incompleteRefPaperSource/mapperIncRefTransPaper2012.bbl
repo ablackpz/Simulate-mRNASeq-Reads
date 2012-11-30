@@ -258,6 +258,11 @@ Langmead B, Trapnell C, Pop M, Salzberg SL (2009) {{U}ltrafast and
 \newblock Genome Biol 10: R25.
 \bibAnnoteFile{Langmead2009}
 
+\bibitem{Flicek2012}
+Flicek P, Amode MR, Barrell D, Beal K, Brent S, et~al. (2012) {{E}nsembl 2012}.
+\newblock Nucleic Acids Res 40: 84--90.
+\bibAnnoteFile{Flicek2012}
+
 \bibitem{Li2009bwa}
 Li H, Durbin R (2009) {{F}ast and accurate short read alignment with
   {B}urrows-{W}heeler transform}.
@@ -293,11 +298,6 @@ Nguyen T, Deng N, Zhu D {{S}{A}{S}eq: {A} selective and adaptive shrinkage
   approach to detect and quantify active transcripts using {R}{N}{A}-{S}eq}.
 \newblock Submitted.
 \bibAnnoteFile{Nguyen2012}
-
-\bibitem{Flicek2012}
-Flicek P, Amode MR, Barrell D, Beal K, Brent S, et~al. (2012) {{E}nsembl 2012}.
-\newblock Nucleic Acids Res 40: 84--90.
-\bibAnnoteFile{Flicek2012}
 
 \bibitem{Garber2011}
 Garber M, Grabherr MG, Guttman M, Trapnell C (2011) {{C}omputational methods
