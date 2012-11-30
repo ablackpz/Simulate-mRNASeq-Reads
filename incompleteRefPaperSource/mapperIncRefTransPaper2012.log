@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  15 NOV 2012 08:25
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  30 NOV 2012 11:46
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -161,11 +161,7 @@ Package: caption3 2010/01/14 v3.1m caption3 kernel (AR)
 )
 \c@ContinuedFloat=\count100
 )
-(./mapperIncRefTransPaper2012.aux
-
-LaTeX Warning: Label `fig:longSeReads' multiply defined.
-
-)
+(./mapperIncRefTransPaper2012.aux)
 \openout1 = `mapperIncRefTransPaper2012.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 64.
@@ -180,7 +176,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 64.
 LaTeX Font Info:    ... okay on input line 64.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 64.
 LaTeX Font Info:    ... okay on input line 64.
- (/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count101
 \scratchdimen=\dimen120
@@ -344,27 +341,24 @@ Overfull \hbox (18.92336pt too wide) in paragraph at lines 342--358
 s.pdf>] [14 <./20121023_transcriptExpression.pdf> <./20121023_geneTranscriptFam
 Expression.pdf>] [15 <./20121024_longReadsMouse.pdf>] [16 <./20121011_multimapR
 eadsLongExample.pdf>] [17 <./20120820_longPairedEndComp.pdf>]
-(./mapperIncRefTransPaper2012.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+(./mapperIncRefTransPaper2012.aux) ) 
 Here is how much of TeX's memory you used:
- 3547 strings out of 493633
- 52204 string characters out of 3143378
+ 3548 strings out of 493633
+ 52228 string characters out of 3143378
  133896 words of memory out of 3000000
- 6758 multiletter control sequences out of 15000+200000
+ 6759 multiletter control sequences out of 15000+200000
  7210 words of font info for 28 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  38i,8n,38p,1993b,289s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
-usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
-r/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/l
-ocal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
-cal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on mapperIncRefTransPaper2012.pdf (17 pages, 3021210 bytes).
+</usr/local/texlive/2011/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2011/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2011/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr7.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmsy7.pfb>
+Output written on mapperIncRefTransPaper2012.pdf (17 pages, 3021169 bytes).
 PDF statistics:
  2035 PDF objects out of 2073 (max. 8388607)
  813 compressed objects within 9 object streams
