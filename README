@@ -1,11 +1,10 @@
-2012.07.27
+2013.03.11
 
-Scripts for producing Illumina single and paired end read data are in python scripts (see makeRandomTestData.py in particular).  Analysis scripts are also in python scripts.  Pipelines for running analyses are in bash scripts.
+This repo contains all the scripts, methods, paper source for generating the data and analyses in "RNA-Seq Mapping Errors When Using Incomplete Reference Transcriptomes of Vertebrates".
 
-2012.11.30
+It uses Gallus_gallus.WASHUC2.63.cdna.all.fa and Mus_musculus.NCBIM37.65.cdna.all.fa from Ensembl for the chicken and mouse reference transcriptomes respectively.
 
-Latex source and paper figures added.
+The user wishing to produce/extend the study is invited to download all the scripts in the python_scripts directory and the ipython notebook IncompleteReferenceTranscriptomeProject.ipynb (note that the user will need to install ipython notebook to use the ipynb).  The user will also need to download and install Bowtie, BWA, and Soap2 mapping programs as well as Samtools.  The notebook can be used two ways: run each command serially on a single machine (takes months but with no babysitting requirement) or run the time-consuming sections of the notebook (data generation/read mapping) in parallel on a cluster and download the results to the local machine for the final calculations in each section.  The analyses in the notebook have been broken into steps so users performing calculations on a cluster can adapt those sections for their remote machines, save the smallest possible results file, and download the results for final processing.  
+Note: only the numbers are reported for each analysis.  It is assumed that each user has his/her favorite/required graphing program for representing the results.
 
-2013.01.18
-
-IPython notebook added and mostly complete for running all simulations.
+Note: Most of these analyses are performed on data generated with many random variables.  Novice users should not be surprised to see that their newly generated numbers vary slightly from the paper results; the trends should be similar to those in the paper however.  For example, the dataset used in the notebook produces results for the mapping program comparison analysis that would indicate that Bwa has slightly greater sensitivity than Bowtie or Soap2.  However, running additional simulations shows that Bwa is only more sensitive on THIS dataset.  This is why a dataset with no increased sensitivity was used in the paper: to avoid misleading readers.  Users are encouraged to generate additional datasets with the same parameters for any analyses that appear to have different trends.  Analyses with consistently different trends should be reported to the authors.
