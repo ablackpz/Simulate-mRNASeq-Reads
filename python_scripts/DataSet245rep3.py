@@ -1,40 +1,18 @@
 import makeRandomTestData, os, random
 
 genes = {}
-name = '200rep2'
-numTranscripts = 5000
-randomTrans = 'Random.' + str(numTranscripts) + '.' + name
-isoformProb = 95
-min = 100
-max = 5000
-
-if makeRandomTestData.checkForFasta(randomTrans + '.fa'):
-    x = os.remove(randomTrans + '.fa')
-for i in range(0, numTranscripts):
-    isoform = random.randint(1, 100)
-    if isoform <= isoformProb and len(genes) > 2:
-        geneSelected = random.choice(genes.keys())
-        geneSelectedParts = geneSelected.split(' ')
-        geneSelectedId = ''
-        for part in geneSelectedParts:
-            geneSelectedId += part
-        identifier = 'testgene_' + str(i) + ' Isoform_' + geneSelectedId
-        thisGeneName, seq = makeRandomTestData.generateIsoforms(identifier, genes[geneSelected], 'random', 0, 0, 0, min, max)
-        genes[thisGeneName] = seq
-    else:
-        thisGeneName =  'testgene_' + str(i) + ' ' + randomTrans
-        genes[thisGeneName] = makeRandomTestData.makeKmerCountData(random.randint(101, 4999), 'default')
-    complete = makeRandomTestData.outputFastaSeq(randomTrans + '.fa', thisGeneName, genes[thisGeneName])
-
-infileName = randomTrans + '.fa'
+name = '245rep3'
+infileName = 'Gallus_gallus.WASHUC2.63.cdna.all.fa'
 filename = 'DataSet' + name
 genes = makeRandomTestData.inputFastaSeq(infileName)
 errors  = 1
 
 if makeRandomTestData.checkForFasta(filename + 'E1R100G100.fa'):
     x = os.remove(filename + 'E1R100G100.fa')
-if makeRandomTestData.checkForFasta(filename + 'E1R100G100RandomReads.fa'):
-    x = os.remove(filename + 'E1R100G100RandomReads.fa')
+if makeRandomTestData.checkForFasta(filename + 'E1R100G100RandomReadsPair1.fa'):
+    x = os.remove(filename + 'E1R100G100RandomReadsPair1.fa')
+if makeRandomTestData.checkForFasta(filename + 'E1R100G100RandomReadsPair2.fa'):
+    x = os.remove(filename + 'E1R100G100RandomReadsPair2.fa')
 if makeRandomTestData.checkForFasta(filename + 'E1R100G100RandomReads.txt'):
     x = os.remove(filename + 'E1R100G100RandomReads.txt')
 if makeRandomTestData.checkForFasta(filename + 'E1R90G100.fa'):
@@ -47,9 +25,21 @@ if makeRandomTestData.checkForFasta(filename + 'E1R60G100.fa'):
     x = os.remove(filename + 'E1R60G100.fa')
 if makeRandomTestData.checkForFasta(filename + 'E1R50G100.fa'):
     x = os.remove(filename + 'E1R50G100.fa')
+if makeRandomTestData.checkForFasta(filename + 'E1R40G100.fa'):
+    x = os.remove(filename + 'E1R40G100.fa')
+if makeRandomTestData.checkForFasta(filename + 'E1R30G100.fa'):
+    x = os.remove(filename + 'E1R30G100.fa')
+if makeRandomTestData.checkForFasta(filename + 'E1R20G100.fa'):
+    x = os.remove(filename + 'E1R20G100.fa')
+if makeRandomTestData.checkForFasta(filename + 'E1R10G100.fa'):
+    x = os.remove(filename + 'E1R10G100.fa')
+
+
 
 count = 0
 readLength = 100
+insertSize = 50
+totalReadLength = readLength * 2 + insertSize
 numGenes = len(genes)
 r90 = int(numGenes * .9)
 r80 = int(numGenes * .8)
@@ -63,19 +53,19 @@ r10 = int(numGenes * .1)
 
 for key in genes:
     thisGeneName = key
-    if len(genes[thisGeneName]) > readLength:
+    if len(genes[thisGeneName]) > totalReadLength:
         complete = makeRandomTestData.outputFastaSeq(filename + 'E1R100G100.fa', thisGeneName, genes[thisGeneName])
-        level = random.randint(0, 50)
-        coverageReq = float(len(genes[thisGeneName])) / float(readLength) * float(level)
-        for i in range(0, int(coverageReq)):
-            position = random.randint(0,len(genes[thisGeneName])-readLength)
-            read = genes[thisGeneName][position:position + readLength]
-            identifier1 = key + 'Count' + str(i) + 'Begin' + str(position) + 'End' + str(position + readLength - 1)
-            if errors:
-                read, identifier1 = makeRandomTestData.addSeqErrorsId(read, identifier1, errors)
+        levelKey = random.randint(0, 2)
+        if levelKey == 0:
+            level = 10
+        elif levelKey == 1:
+            level = 100
+        elif levelKey == 2:
+            level = 1000
+        else:
+            level = 0
 
-            a = makeRandomTestData.outputFastaSeq(filename + 'E1R100G100RandomReads.fa', identifier1, read)
-        b = makeRandomTestData.outputGeneCoverage(filename + 'E1R100G100RandomReads.txt', key, 'Random Placement - Number of Reads' + ':' + str(coverageReq), level)
+        complete = makeRandomTestData.makeRandomlyPlacedPairedEndReads(genes[thisGeneName], thisGeneName, readLength, insertSize, level, filename + 'E1R100G100RandomReadsPair1.fa', filename + 'E1R100G100RandomReadsPair2.fa', filename + 'E1R100G100RandomReads.txt', 1, 0)
 
         count += 1
 
