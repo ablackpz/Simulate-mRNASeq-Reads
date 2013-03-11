@@ -32,7 +32,7 @@ for newString in open(sys.argv[2]):
     if transcripts1.has_key(parts[0]):
         transcripts1[parts[0]] = parts[1]
     else:
-        print "New key in file 1 that is not present in ref file"
+        print "New key in file 1 that is not present in ref file", parts[0]
 #    genesK[parts[0]] = parts[1]
 #    print parts[0]
 
@@ -43,7 +43,7 @@ for newString in open(sys.argv[3]):
     if transcripts2.has_key(parts[0]):
         transcripts2[parts[0]] = parts[1]
     else:
-        print "New key in file 2 that is not present in ref file"
+        print "New key in file 2 that is not present in ref file", parts[0]
 #    genesB[parts[0]] = parts[1]
 #    print parts[0]
 
